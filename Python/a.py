@@ -22,5 +22,5 @@ def delete(root,child=None):
 
 ##MAIN
 #print (getData('user','two'))
-updateOrSet('user','jose',10)
+updateOrSet('user','jose',11)
 #delete('user/jose')
