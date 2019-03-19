@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>LOGIN</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body class="container">
+
+    <h1>LOGIN</h1>
+    <p style="text-align:center">Por favor, ingrese sus credenciales</p>
+    <br>
+
+    <input placeholder="Usuario" id="userInput" type="text" class="validate">
+    <label for="first_name">Ingrese su usuario</label>
+
+    <br><br>
+
+    <input placeholder="Contraseña" id="passwordInput" type="password" class="validate">
+    <label for="first_name">Ingrese su contraseña</label>
+
+    <br><br>
+
+    <div style="text-align:center">
+        <a onclick="iniciarSesion()" id="ingresarBtn" class="waves-effect waves-light btn" style="margin:20px">Ingresar</a>
+        <a id="RegistroBtn" class="waves-effect waves-light btn" style="margin:20px">Registrarse</a>
+    </div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
+    <script src="index.js"></script>
+
+    <script>
+        const electron = require('electron');
+        const {
+            ipcRenderer
+        } = electron;
+
+        function connectDatabase() {
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyA-pzF0Tf4szNB9LTzPjF_4rl54xfecTmY",
+                authDomain: "hci-uvg.firebaseapp.com",
+                databaseURL: "https://hci-uvg.firebaseio.com",
+                projectId: "hci-uvg",
+                storageBucket: "hci-uvg.appspot.com",
+                messagingSenderId: "378655686310"
+            };
+            firebase.initializeApp(config);
+            var database = firebase.database();
+        }
+
+        // Se conecta con la base de datos
+        connectDatabase()
+    </script>
+
+</body>
+
+</html>

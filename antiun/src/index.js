@@ -18,7 +18,7 @@ const createWindow = () => {
     });
 
     // and load the index.html of the app.
-    mainWindow.loadURL(`file://${__dirname}/index.html`);
+    mainWindow.loadURL(`file://${__dirname}/login.html`);
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools();
@@ -54,5 +54,20 @@ app.on('activate', () => {
     }
 });
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
+function iniciarSesion() {
+
+    var userInput = document.getElementById("userInput");
+    var passwordInput = document.getElementById("passwordInput");
+
+    var userData = userInput.value + "@gmail.com";
+    var passwordData = passwordInput.value;
+
+    firebase.auth().signInWithEmailAndPassword(userData, passwordData).catch(function(error) {
+        var errorMessage = error.message;
+
+        window.alert("Error: " + errorMessage);
+        userInput.value = "";
+        passwordInput.value = "";
+    });
+
+};
