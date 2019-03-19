@@ -4,8 +4,3 @@ h1 {
     font-family: 'Open Sans', sans-serif;
     color: rgb(75, 74, 74);
 }
-
-li {
-    display: list-item !important;
-    list-style-type: disc !important;
-}
