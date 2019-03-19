@@ -13,8 +13,8 @@ let mainWindow;
 const createWindow = () => {
     // Create the browser window.
     mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1280,
+        height: 1080,
     });
 
     // and load the index.html of the app.
@@ -53,21 +53,3 @@ app.on('activate', () => {
         createWindow();
     }
 });
-
-function iniciarSesion() {
-
-    var userInput = document.getElementById("userInput");
-    var passwordInput = document.getElementById("passwordInput");
-
-    var userData = userInput.value + "@gmail.com";
-    var passwordData = passwordInput.value;
-
-    firebase.auth().signInWithEmailAndPassword(userData, passwordData).catch(function(error) {
-        var errorMessage = error.message;
-
-        window.alert("Error: " + errorMessage);
-        userInput.value = "";
-        passwordInput.value = "";
-    });
-
-};

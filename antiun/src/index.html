@@ -7,34 +7,45 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 
-<body>
-    <div class="navbar-fixed">
-        <nav>
-            <div class="nav-wrapper">
-                <a href="#" class="brand-logo right" style="padding-right:15px">ANTINUN</a>
-                <ul id="nav-mobile" class="left">
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Estadísticas</a></li>
-                    <li><a href="#">Autores</a></li>
-                </ul>
-            </div>
-        </nav>
+<div class="navbar-fixed">
+    <nav style="position: absolute">
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo right" style="padding-right:15px">ANTINUN</a>
+            <ul id="nav-mobile" class="left">
+                <li class="active"><a href="#">Inicio</a></li>
+                <li><a href="#">Estadísticas</a></li>
+                <li><a href="#">Vecinos</a></li>
+                <li><a href="#">Autores</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<body style="background-size: 83%; background-repeat: no-repeat; background-position: 50% 20%; background-color: #F3F6FF">
+
+    <br>
+
+    <div class=" container " style="font-family: 'BEARSKIN DEMO', 'Open Sans', 'Arial' ">
+        <h3>¡Bienvenido!</h3>
+        <p>Fulano Fulanito</p>
+
+        <br><br><br><br><br><br>
+
+        <h4>PREVENIR:</h4>
+
+        <p style="text-align:justify; left: -30px ">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas <br /> tempus dignissim tellus, vitae malesuada lorem accumsan non. Orci <br /> varius natoque penatibus et magnis dis parturient montes, nascetur<br /> ridiculus mus.
+        </p>
+
+        <br>
+
+        <a class="btn waves-effect blue lighten-2 pulse ">Ver más</a>
+
+    </div>
     </div>
 
-    <div class="container">
-        <h1>INICIO</h1>
-        <hr><br>
-        <a id="DatabaseBtn" class="waves-effect waves-light btn">conectar con DB</a>
-        <a id="DatabaseBtn2" class="waves-effect waves-light btn">Leer datos</a>
-    </div>
 
-    <div class="container">
-        <ul id="listaNombres">
-        </ul>
-    </div>
-
-
-    <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js "></script>
 
     <script>
         const electron = require('electron');
@@ -42,59 +53,7 @@
             ipcRenderer
         } = electron;
 
-        var button = document.getElementById('DatabaseBtn');
-        button.onclick = (connectDatabase);
-
-        var button2 = document.getElementById('DatabaseBtn2');
-        button2.onclick = (readData);
-
-        var ul = document.getElementById('listaNombres');
-
-        function connectDatabase() {
-
-            // Initialize Firebase
-            // TODO: Replace with your project's customized code snippet
-            var config = {
-                apiKey: "AIzaSyA-pzF0Tf4szNB9LTzPjF_4rl54xfecTmY",
-                authDomain: "hci-uvg.firebaseapp.com",
-                databaseURL: "https://hci-uvg.firebaseio.com",
-                projectId: "hci-uvg",
-                storageBucket: "hci-uvg.appspot.com",
-                messagingSenderId: "378655686310"
-            };
-            firebase.initializeApp(config);
-            var database = firebase.database();
-        }
-
-        function writeUserData() {
-            firebase.database().ref('user/').set({
-                username: "Jose",
-                number: "13",
-            });
-        }
-
-        function readData() {
-            var query = firebase.database().ref("users").orderByKey();
-
-            query.once("value").then(function(snapshot) {
-                snapshot.forEach(function(childSnapshot) {
-                    var key = childSnapshot.key;
-                    var childData = childSnapshot.val();
-
-                    var li = document.createElement('li');
-                    var nombre = document.createTextNode(key)
-                    var datos = document.createTextNode(childData["id"]);
-
-                    li.appendChild(nombre);
-
-                    var ul2 = document.createElement('ul')
-                    ul2.appendChild(datos);
-                    li.appendChild(ul2);
-
-                    ul.appendChild(li);
-                });
-            });
-        }
+        document.body.style.backgroundImage = "url( '../Imgs/Inicio1.png') ";
     </script>
 
 </body>

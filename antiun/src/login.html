@@ -30,7 +30,7 @@
 
 
     <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
-    <script src="index.js"></script>
+    <script src="fnsFirebase.js"></script>
 
     <script>
         const electron = require('electron');
@@ -38,22 +38,7 @@
             ipcRenderer
         } = electron;
 
-        function connectDatabase() {
-            // Initialize Firebase
-            var config = {
-                apiKey: "AIzaSyA-pzF0Tf4szNB9LTzPjF_4rl54xfecTmY",
-                authDomain: "hci-uvg.firebaseapp.com",
-                databaseURL: "https://hci-uvg.firebaseio.com",
-                projectId: "hci-uvg",
-                storageBucket: "hci-uvg.appspot.com",
-                messagingSenderId: "378655686310"
-            };
-            firebase.initializeApp(config);
-            var database = firebase.database();
-        }
-
-        // Se conecta con la base de datos
-        connectDatabase()
+        connectDatabase();
     </script>
 
 </body>
