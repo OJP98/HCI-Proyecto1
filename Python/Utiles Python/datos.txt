@@ -1,0 +1,7 @@
+Hola
+Mi
+Nombre
+No
+Es
+Oscar
+[00:43 1.998128] sensor1 = 120	sensor2 = 10	sensor3 = 0
