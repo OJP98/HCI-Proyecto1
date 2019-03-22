@@ -58,7 +58,16 @@ function crearUsuario() {
         }).catch(function(error) {
             // Handle Errors here.
             var errorMessage = error.message;
-            window.alert("Error: " + errorMessage);
+            var errorCode = error.code;
+            if(errorCode=="auth/invalid-email"){
+                window.alert("Ingrese un correo valido");   
+            }
+            if(errorCode=="auth/weak-password"){
+                window.alert("Ingrese contraseña de 6 o mas caracteres");   
+            }
+            if(errorCode=="auth/email-already-in-use"){
+                window.alert("Usuario ya existente");   
+            }
           }); 
     } else
     window.alert("Error: Las contraseñas deben concidir");   
