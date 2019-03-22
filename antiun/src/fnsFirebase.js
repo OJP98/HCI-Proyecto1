@@ -38,8 +38,8 @@ function iniciarSesion() {
     });
 
 };
+
 function crearUsuario() {
-   
     var userInput = document.getElementById("userInput");
     var passwordInput1 = document.getElementById("passwordInput1");
     var passwordInput2 = document.getElementById("passwordInput2");
@@ -48,10 +48,10 @@ function crearUsuario() {
     var passwordData1 = passwordInput1.value;
     var passwordData2 = passwordInput2.value;
 
-    if (passwordData1==passwordData2){
-        firebase.auth().createUserWithEmailAndPassword(userData,passwordData1).then(function(){
+    if (passwordData1 == passwordData2) {
+        firebase.auth().createUserWithEmailAndPassword(userData, passwordData1).then(function() {
 
-            window.alert("El usuario ha sido creado"); 
+            window.alert("El usuario ha sido creado");
             document.location.href = 'login.html';
 
 
@@ -59,16 +59,16 @@ function crearUsuario() {
             // Handle Errors here.
             var errorMessage = error.message;
             var errorCode = error.code;
-            if(errorCode=="auth/invalid-email"){
-                window.alert("Ingrese un correo valido");   
+            if (errorCode == "auth/invalid-email") {
+                window.alert("Ingrese un correo valido");
             }
-            if(errorCode=="auth/weak-password"){
-                window.alert("Ingrese contraseña de 6 o mas caracteres");   
+            if (errorCode == "auth/weak-password") {
+                window.alert("Ingrese contraseña de 6 o mas caracteres");
             }
-            if(errorCode=="auth/email-already-in-use"){
-                window.alert("Usuario ya existente");   
+            if (errorCode == "auth/email-already-in-use") {
+                window.alert("Usuario ya existente");
             }
-          }); 
+        });
     } else
-    window.alert("Error: Las contraseñas deben concidir");   
+        window.alert("Error: Las contraseñas deben concidir");
 };
