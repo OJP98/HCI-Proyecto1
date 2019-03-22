@@ -2,14 +2,14 @@
 <html lang="en">
 
 <head>
-    <title>LOGIN</title>
+    <title>RESTORE</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="./style.css">
 </head>
 
 <body class="container">
 
-    <h1>LOGIN</h1>
+    <h1>RESTORE PASSWORD</h1>
     <p style="text-align:center">Por favor, ingrese sus credenciales</p>
     <br>
 
@@ -18,15 +18,19 @@
 
     <br><br>
 
-    <input placeholder="Contraseña" id="passwordInput" type="password" class="validate">
+    <input placeholder="Contraseña1" id="passwordInput1" type="password" class="validate">
     <label for="first_name">Ingrese su contraseña</label>
 
     <br><br>
 
+    <input placeholder="Contraseña2" id="passwordInput2" type="password" class="validate">
+    <label for="first_name">Ingrese de nuevo la contraseña</label>
+
+    <br><br>
+
     <div style="text-align:center">
-        <a onclick="iniciarSesion()" id="ingresarBtn" class="waves-effect waves-light btn" style="margin:20px">Ingresar</a>
-        <a onclick="document.location.href = 'register.html';" id="RegistroBtn" class="waves-effect waves-light btn" style="margin:20px">Registrarse</a>
-        <a onclick="document.location.href = 'restorePass.html';" id="RecuperarBtn" class="waves-effect waves-light btn" style="margin:20px">Recuperar Contraseña</a>
+        <a onclick="crearUsuario()" id="RecuperarBtn" class="waves-effect waves-light btn" style="margin:20px">Recuperar</a>
+        <a onclick="document.location.href = 'login.html';" id="AtrasBtn" class="waves-effect waves-light btn" style="margin:20px">Atras</a>
     </div>
 
 

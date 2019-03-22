@@ -14,7 +14,7 @@ function connectDatabase() {
     };
     firebase.initializeApp(config);
     var database = firebase.database();
-}
+};
 
 
 function iniciarSesion() {
@@ -37,4 +37,29 @@ function iniciarSesion() {
         passwordInput.value = "";
     });
 
+};
+function crearUsuario() {
+   
+    var userInput = document.getElementById("userInput");
+    var passwordInput1 = document.getElementById("passwordInput1");
+    var passwordInput2 = document.getElementById("passwordInput2");
+
+    var userData = userInput.value;
+    var passwordData1 = passwordInput1.value;
+    var passwordData2 = passwordInput2.value;
+
+    if (passwordData1==passwordData2){
+        firebase.auth().createUserWithEmailAndPassword(userData,passwordData1).then(function(){
+
+            window.alert("El usuario ha sido creado"); 
+            document.location.href = 'login.html';
+
+
+        }).catch(function(error) {
+            // Handle Errors here.
+            var errorMessage = error.message;
+            window.alert("Error: " + errorMessage);
+          }); 
+    } else
+    window.alert("Error: Las contraseñas deben concidir");   
 };
