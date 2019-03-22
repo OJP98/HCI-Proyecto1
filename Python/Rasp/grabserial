@@ -178,7 +178,7 @@ def read_input():
             try:
                 # raw_input in python 2.x returns byte string
                 # decode to unicode
-                cmdinput = raw_input().decode(sys.stdin.encoding)
+                cmdinput = raw_input().decode(sys.stdin.encoding)                
             except EOFError:
                 # if we're piping input, we want to stop trying to read
                 # it when the pipe closes, or the file ends
@@ -273,7 +273,7 @@ def grab(arglist, outputfd=sys.stdout):
     cr_to_nl = 0
     restart = False
     quiet = False
-    systime_format = "%H:%M:%S.%f"
+    systime_format = "%H:%M"
     use_delta = True
 
     for opt, arg in opts:
@@ -518,7 +518,7 @@ def grab(arglist, outputfd=sys.stdout):
                 else:
                     msg = "[%s] " % (linetimestr)
                 if not quiet:
-                    outputfd.write(msg)
+                    outputfd.write(msg)                    
                 if out:
                     try:
                         out.write(msg.encode(sys.stdout.encoding))
@@ -554,7 +554,7 @@ def grab(arglist, outputfd=sys.stdout):
             if out:
                 # save bytestring data exactly as received from serial port
                 # (ie there is no 'decode' here)
-                out.write(x)
+                out.write(x)                
 
             # curline is in unicode
             curline += x.decode("utf8", "ignore")
@@ -570,7 +570,7 @@ def grab(arglist, outputfd=sys.stdout):
                 if restart:
                     vprint(
                         "Restarting %s\n" %
-                        datetime.datetime.now().strftime("%H:%M:%S.%f"))
+                        datetime.datetime.now().strftime("%H:%M:%S"))
                     if out:
                         out.close()
                     sd.close()
