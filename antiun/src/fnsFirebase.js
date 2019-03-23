@@ -14,25 +14,33 @@ function connectDatabase() {
     };
     firebase.initializeApp(config);
     var database = firebase.database();
+
 };
 
 
 function iniciarSesion() {
-
     var userInput = document.getElementById("userInput");
     var passwordInput = document.getElementById("passwordInput");
 
     var userData = userInput.value + "@gmail.com";
     var passwordData = passwordInput.value;
-
+    firebase.auth().languageCode = 'es';
     firebase.auth().signInWithEmailAndPassword(userData, passwordData).then(function() {
 
         document.location.href = 'index.html';
 
     }).catch(function(error) {
         var errorMessage = error.message;
-
-        window.alert("Error: " + errorMessage);
+        var errorCode = error.code;
+        if (errorCode == "auth/invalid-email") {
+            window.alert("Ingrese un usuario valido");
+        }
+        if (errorCode == "auth/user-not-found") {
+            window.alert("Usuario no encontrado");
+        }
+        if (errorCode == "auth/wrong-password") {
+            window.alert("Contrasena incorrecta");
+        }
         userInput.value = "";
         passwordInput.value = "";
     });
@@ -177,3 +185,17 @@ function eliminarVecino() {
         });
     }
 };
+
+function recuperar() {
+
+    var emailAddress = document.getElementById("recuperar");
+    var email=emailAddress.value;
+    firebase.auth().languageCode = 'es';
+    firebase.auth().sendPasswordResetEmail(email).then(function() {
+    window.alert("El correo ha sido enviado");
+    document.location.href = 'login.html';
+    }).catch(function(error) {
+    window.alert("Ingrese un correo valido");
+    });
+};
+
