@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Vecinos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<style>
+    th {
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+    }
+    
+    td {
+        border-bottom: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        padding-left: 12px;
+    }
+    
+    tr:nth-child(even) {
+        background-color: rgba(0, 0, 0, 0.021);
+    }
+</style>
+
+<!-- Barra de navegación -->
+<div class="navbar-fixed">
+    <nav style="position: absolute">
+        <div class="nav-wrapper">
+            <a href="./index.html" class="brand-logo right" style="padding-right:15px">ANTINUN</a>
+            <ul id="nav-mobile" class="left">
+                <li><a href="./index.html">Inicio</a></li>
+                <li><a href="#">Estadísticas</a></li>
+                <li class="active"><a href="./vecinos.html">Vecinos</a></li>
+                <li><a href="./Autores.html">Autores</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<body style="background-color: #F3F6FF">
+
+    <div class="container" style="text-align:center">
+
+        <h1 style="font-family: 'BEARSKIN DEMO', 'Open Sans', 'Arial' ">Vecinos del Área</h1>
+
+        <hr><br>
+
+        <div style="text-align:justify">
+
+            <!-- Boton de agregar -->
+
+            <a class="btn waves-effect waves-light green" onclick="" id="agregarBtn">
+                <i class="large material-icons">add</i>
+            </a>
+
+            <a class="btn waves-effect waves-light red" onclick="" id="borrarBtn" style="margin-left:10px">
+                <i class="large material-icons">delete</i>
+            </a>
+
+            <a class="btn waves-effect waves-light yellow darken-1" onclick="" id="editBtn" style="margin-left:10px">
+                <i class="large material-icons">edit</i>
+            </a>
+
+            <a class="btn waves-effect waves-light blue" onclick="" id="editBtn" style="margin-left:10px">
+                <i class="large material-icons">help_outline</i>
+            </a>
+
+        </div>
+
+        <div id="loader" style="display:block">
+            <br>
+
+            <div class="preloader-wrapper active">
+                <div class="spinner-layer spinner-green-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <p>Cargando datos de los vecinos...</p>
+
+        </div>
+
+        <div id="no_hay_vecinos" style="display:none; text-align: center">
+            <h4>EXCEPCIÓN...</h4>
+            <p>No hay vecinos en la base de datos. :(</p>
+
+        </div>
+
+        <table id="tabla_vecinos" class="highlight" style="display:none">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Área</th>
+                    <th>Correo</th>
+                </tr>
+            </thead>
+
+            <tbody id="tableBody">
+            </tbody>
+        </table>
+
+        <br><br>
+        <a onclick="" id="regresarBtn" class="waves-effect blue lighten-2 waves-light btn" style="margin:20px">Gestionar Vecinos</a>
+
+    </div>
+
+    <br><br><br>
+
+    <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
+    <script src="fnsFirebase.js"></script>
+
+    <script>
+        const electron = require('electron');
+        const {
+            ipcRenderer
+        } = electron;
+
+        connectDatabase();
+        obtenerVecinos();
+    </script>
+
+</body>
+
+</html>

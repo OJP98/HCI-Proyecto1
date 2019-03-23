@@ -72,3 +72,55 @@ function crearUsuario() {
     } else
         window.alert("Error: Las contraseñas deben concidir");
 };
+
+async function existenDatos(variable) {
+    const ref = firebase.database().ref(variable);
+    ref.once("value").then(function(snapshot) {
+        return snapshot.exists();
+    });
+};
+
+async function obtenerVecinos() {
+
+    var tabla_vecinos = document.getElementById("tabla_vecinos");
+    var tbody = document.getElementById("tableBody");
+    var loader = document.getElementById("loader");
+    var noData = document.getElementById("no_hay_vecinos");
+
+    let hayDatos = true;
+
+    if (hayDatos) {
+
+        var query = firebase.database().ref("Vecinos");
+
+        query.once("value").then(function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+                var key = childSnapshot.key;
+                var childData = childSnapshot.val();
+
+                var id = document.createTextNode(key);
+                var nombre = document.createTextNode(childData["nombre"]);
+                var area = document.createTextNode(childData["area"]);
+                var correo = document.createTextNode(childData["correo"]);
+
+                let newRow = tbody.insertRow(-1);
+
+                let celdaId = newRow.insertCell(0);
+                let celdaNombre = newRow.insertCell(1);
+                let celdaArea = newRow.insertCell(2);
+                let celdaCorreo = newRow.insertCell(3);
+
+                celdaId.appendChild(id);
+                celdaNombre.appendChild(nombre);
+                celdaArea.appendChild(area);
+                celdaCorreo.appendChild(correo);
+            });
+        }).then(function() {
+            loader.style.display = "none";
+            tabla_vecinos.style.display = "inline-table";
+        });
+
+    } else {
+        noData.style.display = "inline";
+    }
+};
