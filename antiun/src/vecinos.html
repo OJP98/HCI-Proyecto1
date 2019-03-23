@@ -2,10 +2,20 @@
 <html>
 
 <head>
-    <title>Vecinos</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>VECINOS DEL ÁREA</title>
+
     <link rel="stylesheet" href="./style.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
 <style>
@@ -23,6 +33,11 @@
     
     tr:nth-child(even) {
         background-color: rgba(0, 0, 0, 0.021);
+    }
+    
+    .dropdown-content {
+        width: max-content !important;
+        height: auto !important;
     }
 </style>
 
@@ -45,61 +60,124 @@
 
     <div class="container" style="text-align:center">
 
-        <h1 style="font-family: 'BEARSKIN DEMO', 'Open Sans', 'Arial' ">Vecinos del Área</h1>
+        <h1 style="font-family: 'BEARSKIN DEMO', 'Open Sans', 'Arial'">Vecinos del Área</h1>
+    </div>
 
-        <hr><br>
+    <hr><br>
 
-        <div style="text-align:justify">
+    <!-- BOTONES PARA LA GESTION DE VECINOS -->
+    <div class="container">
+        <a style="text-align:justify" class="btn waves-effect waves-light green" onclick="" id="agregarBtn">
+            <i class="large material-icons">add</i>
+        </a>
+        <a class="btn waves-effect waves-light red" onclick="" id="borrarBtn" style="margin-left:10px; text-align:justify">
+            <i class="large material-icons">delete</i>
+        </a>
+        <a class="btn waves-effect waves-light yellow darken-1" onclick="" id="editBtn" style="margin-left:10px; text-align:justify">
+            <i class="large material-icons">edit</i>
+        </a>
+        <a class="btn waves-effect waves-light blue" onclick="" id="editBtn" style="margin-left:10px; text-align:justify">
+            <i class="large material-icons">help_outline</i>
+        </a>
 
-            <!-- Boton de agregar -->
+        <a style="display:none" class="btn waves-effect waves-light orange right" onclick="" id="editBtn">
+            <i class="large material-icons">cancel</i>
+        </a>
+    </div>
 
-            <a class="btn waves-effect waves-light green" onclick="" id="agregarBtn">
-                <i class="large material-icons">add</i>
-            </a>
-
-            <a class="btn waves-effect waves-light red" onclick="" id="borrarBtn" style="margin-left:10px">
-                <i class="large material-icons">delete</i>
-            </a>
-
-            <a class="btn waves-effect waves-light yellow darken-1" onclick="" id="editBtn" style="margin-left:10px">
-                <i class="large material-icons">edit</i>
-            </a>
-
-            <a class="btn waves-effect waves-light blue" onclick="" id="editBtn" style="margin-left:10px">
-                <i class="large material-icons">help_outline</i>
-            </a>
-
-        </div>
-
-        <div id="loader" style="display:block">
-            <br>
-
-            <div class="preloader-wrapper active">
-                <div class="spinner-layer spinner-green-only">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
+    <!-- INPUTS PARA AGREGAR A UN VECINO -->
+    <div id="inputsVecino" class="container row menu1" style="display: none">
+        <br>
+        <h5 style="font-family: 'BEARSKIN DEMO', 'Open Sans', 'Arial'">Agregar un vecino</h5>
+        <br>
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s2">
+                    <i class="material-icons prefix">accessibility</i>
+                    <input id="id_icon" type="number" class="validate" required>
+                    <label for="id_icon">ID</label>
+                </div>
+                <div class="input-field col s5">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input id="name_icon" type="text" class="validate" required>
+                    <label for="name_icon">Nombre</label>
+                    <span class="helper-text" data-error="El campo tiene que existir" data-success="Ingreso válido"></span>
+                </div>
+                <div class="input-field col s5">
+                    <i class="material-icons prefix">mail_outline</i>
+                    <input id="mail_icon" type="email" class="validate" required>
+                    <label for="mail_icon">Correo</label>
+                    <span class="helper-text" data-error="Por favor, ingrese un correo válido" data-success="Ingreso válido"></span>
                 </div>
             </div>
-            <br>
+        </form>
+        <br>
 
-            <p>Cargando datos de los vecinos...</p>
+        <!-- Boton para guardar y cancelar -->
+        <div style="text-align:center">
+            <a style="margin-left:15px" class="btn waves-effect waves-light orange" onclick="agregarVecino()" id="editBtn">
+                <i class="large material-icons left">save_alt</i>Agregar</a>
 
+            <a style="margin-left:15px" class="btn waves-effect waves-light orange" id="cancelarBtn">
+                <i class="large material-icons left">cancel</i>Cancelar</a>
         </div>
+    </div>
 
-        <div id="no_hay_vecinos" style="display:none; text-align: center">
-            <h4>EXCEPCIÓN...</h4>
-            <p>No hay vecinos en la base de datos. :(</p>
+    <!-- INPUTS PARA ELIMINAR A UN VECINO -->
+    <div id="inputsVecino2" class="container row menu2" style="display: none">
+        <br>
+        <h5 style="font-family: 'BEARSKIN DEMO', 'Open Sans', 'Arial'">Eliminar un vecino</h5>
+        <p>Para eliminar a un vecino, por favor ingrese el número de identificación del mismo.</p>
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s4">
+                    <i class="material-icons prefix">accessibility</i>
+                    <input id="id_vecino2" type="number" class="validate" required>
+                    <label for="id_vecino2">ID</label>
+                </div>
+            </div>
+        </form>
+        <br>
 
+        <!-- Boton para guardar y cancelar -->
+        <div style="text-align:center">
+            <a style="margin-left:15px" class="btn waves-effect waves-light orange" onclick="eliminarVecino()" id="editBtn">
+                <i class="large material-icons left">delete_forever</i>Eliminar</a>
+
+            <a style="margin-left:15px" class="btn waves-effect waves-light orange" id="cancelarBtn2">
+                <i class="large material-icons left">cancel</i>Cancelar</a>
         </div>
+    </div>
 
-        <table id="tabla_vecinos" class="highlight" style="display:none">
+    <!-- PANTALLA DE CARGA -->
+    <div id="loader" class="container" style="text-align:center; display: block">
+        <br>
+        <div class="preloader-wrapper active">
+            <div class="spinner-layer spinner-green-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <p>Cargando datos de los vecinos...</p>
+    </div>
+
+    <!-- PANTALLA DE EXCEPCIÓN -->
+    <div class="container" id="no_hay_vecinos" style="display:none; text-align: center">
+        <h4>EXCEPCIÓN...</h4>
+        <p>No hay vecinos en la base de datos. :(</p>
+    </div>
+
+    <!-- TABLA DE VECINOS -->
+    <div class="container">
+        <table id="tabla_vecinos" class="highlight" style="display:none; text-align: center">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -108,20 +186,50 @@
                     <th>Correo</th>
                 </tr>
             </thead>
-
             <tbody id="tableBody">
             </tbody>
         </table>
-
-        <br><br>
-        <a onclick="" id="regresarBtn" class="waves-effect blue lighten-2 waves-light btn" style="margin:20px">Gestionar Vecinos</a>
-
     </div>
 
     <br><br><br>
 
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
     <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
+
+    <!-- <script src=..\node_modules\materialize-css\dist\js\materialize.js></script> -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
     <script src="fnsFirebase.js"></script>
+
+    <script>
+        window.$ = window.jQuery = require('../node_modules/jquery');
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#agregarBtn').click(function() {
+                $('#inputsVecino2').slideUp()
+                $('#inputsVecino').slideToggle();
+            });
+            $('#cancelarBtn').click(function() {
+                $('#inputsVecino').slideToggle();
+            });
+
+            $('#borrarBtn').click(function() {
+                $('#inputsVecino').slideUp()
+                $('#inputsVecino2').slideToggle();
+            });
+
+            $('#cancelarBtn2').click(function() {
+                $('#inputsVecino2').slideToggle();
+            });
+
+
+        });
+    </script>
 
     <script>
         const electron = require('electron');

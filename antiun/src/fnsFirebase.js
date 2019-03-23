@@ -95,6 +95,7 @@ async function obtenerVecinos() {
 
         query.once("value").then(function(snapshot) {
             snapshot.forEach(function(childSnapshot) {
+
                 var key = childSnapshot.key;
                 var childData = childSnapshot.val();
 
@@ -122,5 +123,57 @@ async function obtenerVecinos() {
 
     } else {
         noData.style.display = "inline";
+    }
+};
+
+
+function agregarVecino() {
+
+    let vecino_id = document.getElementById("id_icon").value;
+    let vecino_nombre = document.getElementById("name_icon").value;
+    let vecino_correo = document.getElementById("mail_icon").value;
+
+    if (vecino_id == "" || vecino_nombre == "" || vecino_correo == "") {
+        window.alert("Por favor, no deje ninguna entrada en blanco.");
+    } else {
+        $("#tabla_vecinos tbody tr").remove();
+
+        firebase.database().ref('Vecinos/' + vecino_id).set({
+            nombre: vecino_nombre,
+            area: "Antigua Guatemala",
+            correo: vecino_correo
+        });
+
+        document.getElementById("tabla_vecinos").style.display = "none";
+        document.getElementById("loader").style.display = "block";
+        obtenerVecinos().then(function() {
+            window.alert("Vecino agregado con éxito!");
+            document.getElementById("id_icon").value = "";
+            document.getElementById("name_icon").value = "";
+            document.getElementById("mail_icon").value = "";
+        });
+    }
+};
+
+function eliminarVecino() {
+
+    let vecino_id = document.getElementById("id_vecino2").value;
+
+    if (vecino_id == "") {
+        window.alert("Por favor, ingrese el ID de un vecino.");
+    } else {
+
+        firebase.database().ref('Vecinos/' + vecino_id).remove().then(function() {
+            window.alert("Vecino eliminado con éxito!");
+        });
+
+        document.getElementById("tabla_vecinos").style.display = "none";
+        document.getElementById("loader").style.display = "block";
+
+        $("#tabla_vecinos tbody tr").remove();
+
+        obtenerVecinos().then(function() {
+            document.getElementById("id_vecino2").value = "";
+        });
     }
 };
