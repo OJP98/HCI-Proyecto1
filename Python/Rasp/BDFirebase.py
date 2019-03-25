@@ -15,3 +15,9 @@ def delete(root,child=None):
 	var+=root
 	firebase = firebase.FirebaseApplication('https://hci-uvg.firebaseio.com')
 	result = firebase.delete(var, child)
+
+def getVecino(root,child=None):
+	from firebase import firebase
+	firebase = firebase.FirebaseApplication('https://hci-uvg.firebaseio.com/Vecinos/')
+	result = firebase.get(root, child)
+	return result
