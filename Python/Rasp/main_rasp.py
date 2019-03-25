@@ -27,31 +27,36 @@ def leerTxt(filename):
 
 	# Obtener contador de bd
 	contador = bd.getData("x","Contador")
+	
+	# Actualizar contador en bd
+	contador += 1
+	bd.updateOrSet("x","Contador",contador)
+	
+	for i in range(3):
+		if datos[i] < 100:
+			datos[i] = 0
+		
+	
+	print(datos)
 
 	# Obtener nivel de agua
 	try:
 		nivel_agua = datos.index(0)
 	except:
-		nivel_agua = 3
+		nivel_agua = 3	
 
 	# Publicar ultimo dato en bd
 	bd.updateOrSet(str(contador),"dia", hoy.day)
 	bd.updateOrSet(str(contador),"mes", hoy.month)
 	bd.updateOrSet(str(contador),"hora", int(hora[:2]))
 	bd.updateOrSet(str(contador),"minuto", int(hora[3:]))
-	bd.updateOrSet(str(contador),"nivel_agua", nivel_agua)
-
-	# Actualizar contador en bd
-	contador += 1
-	bd.updateOrSet("x","Contador",contador)
+	bd.updateOrSet(str(contador),"nivel_agua", nivel_agua)	
 
 	# Cerrar archivo .txt
 	archivo.close()
 
 
-
 # PROGRAMA PRINCIPAL
-time.sleep(5)
 while True:
 	leerTxt('./datos.txt')
-	time.sleep(60)
+	time.sleep(15)
