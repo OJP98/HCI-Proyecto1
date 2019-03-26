@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DATOS DEL AGUA</title>
     <link rel="stylesheet" href="./style.css">
 
@@ -41,25 +43,59 @@
 
     <hr><br>
 
-    <div class="container">
+    <div id="dialogoverlay"></div>
+    <div id="dialogbox">
+        <div>
+            <div id="dialogboxhead"></div>
+            <div id="dialogboxbody"></div>
+            <div id="dialogboxfoot"></div>
+        </div>
+    </div>
+
+    <div class="">
 
         <div class="row">
+
+            <!-- PRIMERA COLUMNA (TABLA DE DATOS) -->
             <div class="col s4">
-                <h4> Col1 </h4>
+
+                <h4 style="text-align:center">TABLA DE DATOS</h4>
+                <br>
+
+                <!-- TABLA DE DATOS -->
+                <div class="container">
+                    <table id="tabla_datos" class="highlight" style="text-align: center">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center">Fecha</th>
+                                <th style="text-align: center">Nivel</th>
+                                <th style="text-align: center">Predicción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="col s4">
-                <h4> Col2 </h4>
+                <h4 style="text-align:center"> GRÁFICO DEL COMPORTAMIENTO DEL AGUA </h4>
             </div>
 
+            <!-- TERCERA COLUMNA (BOTONES) -->
             <div class="col s4" style="text-align: center">
                 <h4> Enviar un mensaje de alerta </h4>
                 <br>
-                <a class="waves-effect waves-light btn yellow darken-1" onclick="toastMensaje('Enviando mensajes de alerta amarilla...')">
+                <a class="waves-effect waves-light btn yellow darken-1"
+                    onclick="Confirm.render('¿Quieres enviar un correo de alerta amarilla a todos los vecinos?','amarillo')">
                     <i class="material-icons right">warning</i> Alerta Amarilla</a>
                 <br><br><br>
-                <a class="waves-effect waves-light btn red" onclick="toastMensaje('Enviando mensajes de alerta roja...')">
+                <a class="waves-effect waves-light btn red"
+                    onclick="Confirm.render('¿Quieres enviar un correo de alerta roja a todos los vecinos?','rojo')">
                     <i class=" material-icons right ">warning</i> Alerta Roja</a>
+                <p style="text-align: justify; margin: 60px;">NOTA: El mensaje será enviado a todos los vecinos que se
+                    encuentran en el área seleccionada. La lista de dichos vecinos puede ser visualizada en la pestaña
+                    de 'VECINOS'.</p>
             </div>
 
         </div>
@@ -72,29 +108,24 @@
 
     <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js "></script>
 
-    <!-- <script src=..\node_modules\materialize-css\dist\js\materialize.js></script> -->
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js "></script>
 
     <script src="fnsFirebase.js "></script>
+
+    <script src="generalFns.js"></script>
 
     <script>
         window.$ = window.jQuery = require('../node_modules/jquery');
     </script>
 
     <script>
-        function toastMensaje(mensaje) {
-            M.toast({
-                html: mensaje,
-                classes: 'rounded'
-            });
-            setTimeout(function() {
-                M.toast({
-                    html: 'Mensajes enviados!',
-                    classes: 'rounded'
-                });
-            }, 5000);
-        }
+        const electron = require('electron');
+        const {
+            ipcRenderer
+        } = electron;
+
+        connectDatabase();
+        actualizar_datos_agua();
     </script>
 </body>
 

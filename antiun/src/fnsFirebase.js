@@ -25,11 +25,11 @@ function iniciarSesion() {
     var userData = userInput.value + "@gmail.com";
     var passwordData = passwordInput.value;
     firebase.auth().languageCode = 'es';
-    firebase.auth().signInWithEmailAndPassword(userData, passwordData).then(function() {
+    firebase.auth().signInWithEmailAndPassword(userData, passwordData).then(function () {
 
         document.location.href = 'index.html';
 
-    }).catch(function(error) {
+    }).catch(function (error) {
         var errorMessage = error.message;
         var errorCode = error.code;
         if (errorCode == "auth/invalid-email") {
@@ -57,13 +57,13 @@ function crearUsuario() {
     var passwordData2 = passwordInput2.value;
 
     if (passwordData1 == passwordData2) {
-        firebase.auth().createUserWithEmailAndPassword(userData, passwordData1).then(function() {
+        firebase.auth().createUserWithEmailAndPassword(userData, passwordData1).then(function () {
 
             window.alert("El usuario ha sido creado");
             document.location.href = 'login.html';
 
 
-        }).catch(function(error) {
+        }).catch(function (error) {
             // Handle Errors here.
             var errorMessage = error.message;
             var errorCode = error.code;
@@ -83,7 +83,7 @@ function crearUsuario() {
 
 async function existenDatos(variable) {
     const ref = firebase.database().ref(variable);
-    ref.once("value").then(function(snapshot) {
+    ref.once("value").then(function (snapshot) {
         return snapshot.exists();
     });
 };
@@ -101,8 +101,8 @@ async function obtenerVecinos() {
 
         var query = firebase.database().ref("Vecinos");
 
-        query.once("value").then(function(snapshot) {
-            snapshot.forEach(function(childSnapshot) {
+        query.once("value").then(function (snapshot) {
+            snapshot.forEach(function (childSnapshot) {
 
                 var key = childSnapshot.key;
                 var childData = childSnapshot.val();
@@ -124,7 +124,7 @@ async function obtenerVecinos() {
                 celdaArea.appendChild(area);
                 celdaCorreo.appendChild(correo);
             });
-        }).then(function() {
+        }).then(function () {
             loader.style.display = "none";
             tabla_vecinos.style.display = "inline-table";
         });
@@ -137,12 +137,19 @@ async function obtenerVecinos() {
 
 function agregarVecino() {
 
-    let vecino_id = document.getElementById("id_icon").value;
-    let vecino_nombre = document.getElementById("name_icon").value;
-    let vecino_correo = document.getElementById("mail_icon").value;
+    let form = document.getElementById("agregarForm")
 
-    if (vecino_id == "" || vecino_nombre == "" || vecino_correo == "") {
-        window.alert("Por favor, no deje ninguna entrada en blanco.");
+    let correo_input = document.getElementById("mail_icon");
+    let vecino_correo = correo_input.value;
+
+    let nombre_input = document.getElementById("name_icon");
+    let vecino_nombre = nombre_input.value;
+
+    let id_input = document.getElementById("id_icon");
+    let vecino_id = id_input.value;
+
+    if (!correo_input.checkValidity() || !nombre_input.checkValidity() || !id_input.checkValidity()) {
+        window.alert("Por favor, verifique que todos los campos sean válidos");
     } else {
         $("#tabla_vecinos tbody tr").remove();
 
@@ -154,16 +161,19 @@ function agregarVecino() {
 
         document.getElementById("tabla_vecinos").style.display = "none";
         document.getElementById("loader").style.display = "block";
-        obtenerVecinos().then(function() {
+        obtenerVecinos().then(function () {
             window.alert("Vecino agregado con éxito!");
-            document.getElementById("id_icon").value = "";
-            document.getElementById("name_icon").value = "";
-            document.getElementById("mail_icon").value = "";
+
+            form.reset();
+
         });
     }
+
 };
 
 function eliminarVecino() {
+
+    let form = document.getElementById("eliminarForm");
 
     let vecino_id = document.getElementById("id_vecino2").value;
 
@@ -171,17 +181,16 @@ function eliminarVecino() {
         window.alert("Por favor, ingrese el ID de un vecino.");
     } else {
 
-        firebase.database().ref('Vecinos/' + vecino_id).remove().then(function() {
+        firebase.database().ref('Vecinos/' + vecino_id).remove().then(function () {
             window.alert("Vecino eliminado con éxito!");
-        });
+            document.getElementById("tabla_vecinos").style.display = "none";
+            document.getElementById("loader").style.display = "block";
 
-        document.getElementById("tabla_vecinos").style.display = "none";
-        document.getElementById("loader").style.display = "block";
+            $("#tabla_vecinos tbody tr").remove();
 
-        $("#tabla_vecinos tbody tr").remove();
-
-        obtenerVecinos().then(function() {
-            document.getElementById("id_vecino2").value = "";
+            obtenerVecinos().then(function () {
+                form.reset();
+            });
         });
     }
 };
@@ -191,10 +200,54 @@ function recuperar() {
     var emailAddress = document.getElementById("recuperar");
     var email = emailAddress.value;
     firebase.auth().languageCode = 'es';
-    firebase.auth().sendPasswordResetEmail(email).then(function() {
+    firebase.auth().sendPasswordResetEmail(email).then(function () {
         window.alert("El correo ha sido enviado");
         document.location.href = 'login.html';
-    }).catch(function(error) {
+    }).catch(function (error) {
         window.alert("Ingrese un correo valido");
     });
 };
+
+function actualizar_datos_agua() {
+    let tabla_datos = document.getElementById("tabla_datos");
+    let tbody = document.getElementById("tableBody");
+    let query = firebase.database().ref("Datos");
+
+    query.once("value").then(function (snapshot) {
+
+        console.log(snapshot.numChildren());
+
+        snapshot.forEach(function (childSnapshot) {
+
+            let key = childSnapshot.key;
+            let childData = childSnapshot.val();
+
+            if (key == "x")
+                return true;
+
+            let dia = document.createTextNode(childData["dia"]);
+            let minuto = document.createTextNode(childData["minuto"]);
+            let hora = document.createTextNode(childData["hora"]);
+            let mes = document.createTextNode(childData["mes"]);
+            let nivelAgua1 = document.createTextNode(childData["nivel_agua"]);
+            let nivelAgua2 = document.createTextNode(childData["nivel_agua"]);
+
+            if (hora === "  ")
+                return true;
+
+            let hora_minuto = document.createTextNode(childData["hora"] + ":" + childData["minuto"]);
+
+            let newRow = tbody.insertRow(-1);
+
+            let celdaFecha = newRow.insertCell(0);
+            let celdaNivelAgua = newRow.insertCell(1);
+            let celdaPrediccion = newRow.insertCell(2);
+
+            celdaFecha.appendChild(hora_minuto);
+            celdaNivelAgua.appendChild(nivelAgua1);
+            celdaPrediccion.appendChild(nivelAgua2);
+        });
+    }).then(function () {
+        tabla_datos.style.display = "inline-table";
+    });
+}
