@@ -189,13 +189,12 @@ function eliminarVecino() {
 function recuperar() {
 
     var emailAddress = document.getElementById("recuperar");
-    var email=emailAddress.value;
+    var email = emailAddress.value;
     firebase.auth().languageCode = 'es';
     firebase.auth().sendPasswordResetEmail(email).then(function() {
-    window.alert("El correo ha sido enviado");
-    document.location.href = 'login.html';
+        window.alert("El correo ha sido enviado");
+        document.location.href = 'login.html';
     }).catch(function(error) {
-    window.alert("Ingrese un correo valido");
+        window.alert("Ingrese un correo valido");
     });
 };
-

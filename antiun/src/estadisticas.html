@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>DATOS DEL AGUA</title>
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<!-- Barra de navegación -->
+<div class="navbar-fixed">
+    <nav style="position: absolute">
+        <div class="nav-wrapper">
+            <a href="./index.html" class="brand-logo right" style="padding-right:15px">ANTINUN</a>
+            <ul id="nav-mobile" class="left">
+                <li><a href="./index.html">Inicio</a></li>
+                <li class="active"><a href="./estadisticas.html">Estadísticas</a></li>
+                <li><a href="./vecinos.html">Vecinos</a></li>
+                <li><a href="./Autores.html">Acerca de</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<body style="background-color: #F3F6FF">
+
+    <div class="container" style="text-align:center">
+
+        <h1>Estadísticas y datos del Agua</h1>
+    </div>
+
+    <hr><br>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col s4">
+                <h4> Col1 </h4>
+            </div>
+
+            <div class="col s4">
+                <h4> Col2 </h4>
+            </div>
+
+            <div class="col s4" style="text-align: center">
+                <h4> Enviar un mensaje de alerta </h4>
+                <br>
+                <a class="waves-effect waves-light btn yellow darken-1" onclick="toastMensaje('Enviando mensajes de alerta amarilla...')">
+                    <i class="material-icons right">warning</i> Alerta Amarilla</a>
+                <br><br><br>
+                <a class="waves-effect waves-light btn red" onclick="toastMensaje('Enviando mensajes de alerta roja...')">
+                    <i class=" material-icons right ">warning</i> Alerta Roja</a>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js "></script>
+
+    <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js "></script>
+
+    <!-- <script src=..\node_modules\materialize-css\dist\js\materialize.js></script> -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js "></script>
+
+    <script src="fnsFirebase.js "></script>
+
+    <script>
+        window.$ = window.jQuery = require('../node_modules/jquery');
+    </script>
+
+    <script>
+        function toastMensaje(mensaje) {
+            M.toast({
+                html: mensaje,
+                classes: 'rounded'
+            });
+            setTimeout(function() {
+                M.toast({
+                    html: 'Mensajes enviados!',
+                    classes: 'rounded'
+                });
+            }, 5000);
+        }
+    </script>
+</body>
+
+</html>
