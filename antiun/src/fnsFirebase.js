@@ -225,15 +225,17 @@ function actualizar_datos_agua() {
             if (key == "x")
                 return true;
 
+            if (typeof childData["hora"] === 'undefined')
+                return true;
+
+
+
             let dia = document.createTextNode(childData["dia"]);
             let minuto = document.createTextNode(childData["minuto"]);
             let hora = document.createTextNode(childData["hora"]);
             let mes = document.createTextNode(childData["mes"]);
             let nivelAgua1 = document.createTextNode(childData["nivel_agua"]);
             let nivelAgua2 = document.createTextNode(childData["nivel_agua"]);
-
-            if (hora === "  ")
-                return true;
 
             let hora_minuto = document.createTextNode(childData["hora"] + ":" + childData["minuto"]);
 

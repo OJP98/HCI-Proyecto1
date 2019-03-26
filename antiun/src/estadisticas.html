@@ -15,9 +15,23 @@
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
 
+    <link rel="stylesheet" type="text/css" href="..\node_modules\chart.js\dist\Chart.min.css">
+
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
+
+<style>
+    th {
+        border-bottom: 1px solid #ddd;
+    }
+
+    td {
+        border-bottom: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+    }
+</style>
 
 <!-- Barra de navegación -->
 <div class="navbar-fixed">
@@ -64,12 +78,12 @@
 
                 <!-- TABLA DE DATOS -->
                 <div class="container">
-                    <table id="tabla_datos" class="highlight" style="text-align: center">
+                    <table id="tabla_datos" class="highlight centered" style="border: 1px">
                         <thead>
                             <tr>
-                                <th style="text-align: center">Fecha</th>
-                                <th style="text-align: center">Nivel</th>
-                                <th style="text-align: center">Predicción</th>
+                                <th>Fecha</th>
+                                <th>Nivel</th>
+                                <th>Predicción</th>
                             </tr>
                         </thead>
                         <tbody id="tableBody">
@@ -80,6 +94,7 @@
 
             <div class="col s4">
                 <h4 style="text-align:center"> GRÁFICO DEL COMPORTAMIENTO DEL AGUA </h4>
+                <canvas id="myChart" width="400" height="400"></canvas>
             </div>
 
             <!-- TERCERA COLUMNA (BOTONES) -->
@@ -110,6 +125,10 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js "></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+    <script src="..\node_modules\chart.js\dist\Chart.js"></script>
+
     <script src="fnsFirebase.js "></script>
 
     <script src="generalFns.js"></script>
@@ -123,6 +142,38 @@
         const {
             ipcRenderer
         } = electron;
+
+        Chart.platform.disableCSSInjection = true;
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: ['19:17', '19:18', '19:19', '19:20', '19:21', '19:22', '19:23'],
+                datasets: [{
+                    label: 'Nivel del agua',
+                    borderColor: 'rgb(0, 99, 132)',
+                    data: [0, 0, 0, 1, 1, 1, 2]
+                }]
+            },
+
+            // Configuration options go here
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            max: 5,
+                            min: 0,
+                            stepSize: 0.5
+                        }
+                    }]
+                }
+            }
+        });
 
         connectDatabase();
         actualizar_datos_agua();
