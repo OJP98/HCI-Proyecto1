@@ -25,11 +25,11 @@ function iniciarSesion() {
     var userData = userInput.value + "@gmail.com";
     var passwordData = passwordInput.value;
     firebase.auth().languageCode = 'es';
-    firebase.auth().signInWithEmailAndPassword(userData, passwordData).then(function () {
+    firebase.auth().signInWithEmailAndPassword(userData, passwordData).then(function() {
 
         document.location.href = 'index.html';
 
-    }).catch(function (error) {
+    }).catch(function(error) {
         var errorMessage = error.message;
         var errorCode = error.code;
         if (errorCode == "auth/invalid-email") {
@@ -57,21 +57,21 @@ function crearUsuario() {
     var passwordData2 = passwordInput2.value;
 
     if (passwordData1 == passwordData2) {
-        firebase.auth().createUserWithEmailAndPassword(userData, passwordData1).then(function () {
+        firebase.auth().createUserWithEmailAndPassword(userData, passwordData1).then(function() {
 
             window.alert("El usuario ha sido creado");
             document.location.href = 'login.html';
 
 
-        }).catch(function (error) {
+        }).catch(function(error) {
             // Handle Errors here.
             var errorMessage = error.message;
             var errorCode = error.code;
             if (errorCode == "auth/invalid-email") {
-                window.alert("Ingrese un correo valido");
+                window.alert("Ingrese un correo válido");
             }
             if (errorCode == "auth/weak-password") {
-                window.alert("Ingrese contraseña de 6 o mas caracteres");
+                window.alert("Ingrese contraseña de 6 o más caracteres");
             }
             if (errorCode == "auth/email-already-in-use") {
                 window.alert("Usuario ya existente");
@@ -83,7 +83,7 @@ function crearUsuario() {
 
 async function existenDatos(variable) {
     const ref = firebase.database().ref(variable);
-    ref.once("value").then(function (snapshot) {
+    ref.once("value").then(function(snapshot) {
         return snapshot.exists();
     });
 };
@@ -101,8 +101,8 @@ async function obtenerVecinos() {
 
         var query = firebase.database().ref("Vecinos");
 
-        query.once("value").then(function (snapshot) {
-            snapshot.forEach(function (childSnapshot) {
+        query.once("value").then(function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
 
                 var key = childSnapshot.key;
                 var childData = childSnapshot.val();
@@ -124,7 +124,7 @@ async function obtenerVecinos() {
                 celdaArea.appendChild(area);
                 celdaCorreo.appendChild(correo);
             });
-        }).then(function () {
+        }).then(function() {
             loader.style.display = "none";
             tabla_vecinos.style.display = "inline-table";
         });
@@ -161,7 +161,7 @@ function agregarVecino() {
 
         document.getElementById("tabla_vecinos").style.display = "none";
         document.getElementById("loader").style.display = "block";
-        obtenerVecinos().then(function () {
+        obtenerVecinos().then(function() {
             window.alert("Vecino agregado con éxito!");
 
             form.reset();
@@ -181,14 +181,14 @@ function eliminarVecino() {
         window.alert("Por favor, ingrese el ID de un vecino.");
     } else {
 
-        firebase.database().ref('Vecinos/' + vecino_id).remove().then(function () {
+        firebase.database().ref('Vecinos/' + vecino_id).remove().then(function() {
             window.alert("Vecino eliminado con éxito!");
             document.getElementById("tabla_vecinos").style.display = "none";
             document.getElementById("loader").style.display = "block";
 
             $("#tabla_vecinos tbody tr").remove();
 
-            obtenerVecinos().then(function () {
+            obtenerVecinos().then(function() {
                 form.reset();
             });
         });
@@ -200,10 +200,10 @@ function recuperar() {
     var emailAddress = document.getElementById("recuperar");
     var email = emailAddress.value;
     firebase.auth().languageCode = 'es';
-    firebase.auth().sendPasswordResetEmail(email).then(function () {
+    firebase.auth().sendPasswordResetEmail(email).then(function() {
         window.alert("El correo ha sido enviado");
         document.location.href = 'login.html';
-    }).catch(function (error) {
+    }).catch(function(error) {
         window.alert("Ingrese un correo valido");
     });
 };
@@ -213,11 +213,11 @@ function actualizar_datos_agua() {
     let tbody = document.getElementById("tableBody");
     let query = firebase.database().ref("Datos");
 
-    query.once("value").then(function (snapshot) {
+    query.once("value").then(function(snapshot) {
 
         console.log(snapshot.numChildren());
 
-        snapshot.forEach(function (childSnapshot) {
+        snapshot.forEach(function(childSnapshot) {
 
             let key = childSnapshot.key;
             let childData = childSnapshot.val();
@@ -249,7 +249,7 @@ function actualizar_datos_agua() {
             celdaNivelAgua.appendChild(nivelAgua1);
             celdaPrediccion.appendChild(nivelAgua2);
         });
-    }).then(function () {
+    }).then(function() {
         tabla_datos.style.display = "inline-table";
     });
 }

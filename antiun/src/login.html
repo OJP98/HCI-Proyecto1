@@ -9,35 +9,46 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 
-<body class="container">
+<body style="background-image: url(../Imgs/Login.png); background-repeat: no-repeat; background-size: 90% auto;">
 
-    <h1>LOGIN</h1>
-    <p style="text-align:center">Por favor, ingrese sus credenciales</p>
-    <br>
+    <div class="row">
+        <div class="col s12" style="padding-left: 40%; padding-right: 5%;">
+            <h1>LOGIN</h1>
+            <p style="text-align:center">Por favor, ingrese sus credenciales</p>
+            <br>
 
-    <input placeholder="Usuario" id="userInput" type="text" class="validate">
-    <label for="first_name">Ingrese su usuario</label>
+            <div class="input-field">
+                <input id="userInput" type="email" class="validate" required>
+                <label for="userInput">Correo electrónico</label>
+                <span class="helper-text">Ingrese su correo electrónico</span>
+            </div class="input-field">
 
-    <br><br>
+            <br>
 
-    <input placeholder="Contraseña" id="passwordInput" type="password" class="validate">
-    <label for="first_name">Ingrese su contraseña</label>
+            <div class="input-field">
+                <input id="passwordInput" type="password" class="validate" required>
+                <label for="passwordInput">Contraseña</label>
+                <span class="helper-text">Ingrese su contraseña asociada</span>
+            </div class="input-field">
 
-    <br><br>
+            <br><br>
 
-    <div style="text-align:center">
-        <a onclick="iniciarSesion()" id="ingresarBtn" class="waves-effect waves-light btn"
-            style="margin:20px">Ingresar</a>
-        <a onclick="document.location.href = 'register.html';" id="RegistroBtn" class="waves-effect waves-light btn"
-            style="margin:20px">Registrarse</a>
-        <a onclick="document.location.href = 'restorePass.html';" id="RecuperarBtn" class="waves-effect waves-light btn"
-            style="margin:20px">Recuperar Contraseña</a>
+            <div style="text-align:center">
+                <a onclick="iniciarSesion()" id="ingresarBtn" class="waves-effect waves-light blue darken-4 btn" style="margin:20px">Ingresar</a>
+                <a onclick="document.location.href = 'register.html';" id="RegistroBtn" class="waves-effect waves-light blue darken-4 btn" style="margin:20px">Registrarse</a>
+                <a onclick="document.location.href = 'restorePass.html';" id="RecuperarBtn" class="waves-effect waves-light blue darken-4 btn" style="margin:20px">Recuperar Contraseña</a>
+            </div>
+        </div>
     </div>
 
 
     <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="fnsFirebase.js"></script>
+
+    <script>
+        window.$ = window.jQuery = require('../node_modules/jquery');
+    </script>
 
     <script>
         const electron = require('electron');

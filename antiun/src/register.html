@@ -15,32 +15,48 @@
     <p style="text-align:center">Por favor, ingrese los datos para el registro</p>
     <br>
 
-    <input placeholder="Usuario" id="userInput" type="text" class="validate">
-    <label for="first_name">Ingrese su usuario</label>
-
-    <br><br>
-
-    <input placeholder="Contraseña1" id="passwordInput1" type="password" class="validate">
-    <label for="first_name">Ingrese su contraseña</label>
-
-    <br><br>
-
-    <input placeholder="Contraseña2" id="passwordInput2" type="password" class="validate">
-    <label for="first_name">Ingrese de nuevo la contraseña</label>
+    <div class="row">
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="userInput" type="email" class="validate" required>
+                    <label for="userInput">Correo electrónico</label>
+                    <span class="helper-text" data-error="Ingrese un correo válido" data-success="Correo válido">
+                                    Ingrese su correo electrónico</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="passwordInput1" type="password" required>
+                    <label for="passwordInput1">Contraseña</label>
+                    <span class="helper-text">Ingrese una contraseña con 6 o más caracteres</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="passwordInput2" type="password" required>
+                    <label for="passwordInput2">Contraseña</label>
+                    <span class="helper-text">Vuelva a ingresar la contraseña</span>
+                </div>
+            </div>
+        </form>
+    </div>
 
     <br><br>
 
     <div style="text-align:center">
-        <a onclick="crearUsuario()" id="RegistroBtn" class="waves-effect waves-light btn"
-            style="margin:20px">Registrarse</a>
-        <a onclick="document.location.href = 'login.html';" id="AtrasBtn" class="waves-effect waves-light btn"
-            style="margin:20px">Atras</a>
+        <a onclick="crearUsuario()" id="RegistroBtn" class="waves-effect waves-light btn" style="margin:20px">Registrarse</a>
+        <a onclick="document.location.href = 'login.html';" id="AtrasBtn" class="waves-effect waves-light btn" style="margin:20px">Atras</a>
     </div>
 
 
     <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="fnsFirebase.js"></script>
+
+    <script>
+        window.$ = window.jQuery = require('../node_modules/jquery');
+    </script>
 
     <script>
         const electron = require('electron');
