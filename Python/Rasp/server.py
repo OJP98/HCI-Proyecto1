@@ -5,15 +5,14 @@ import matplotlib.pyplot as plt
 import csv
 import BDFirebase as bd
 import time
+from correo import enviarCorreo
 
 
 class Prediccion(object):
 	def __init__(self):
-		#self.leerCSV() 
-		#self.escribirCSV()  
-		self.getAllVecinos()    
-		self.alerta() 
-
+		self.leerCSV() 
+		self.escribirCSV()  
+		
 	def leerCSV(self):
 		#Leer csv
 		with open('dummyData.csv','r') as File:  
@@ -92,22 +91,28 @@ class Prediccion(object):
 			self.vecinos.append(bd.getVecino(str(i),'correo'))
 
 	def alerta(self):
+		self.getVecino()
+		mensaje="El programa ha detectado un crecimiento acelerado del nivel del agua, por favor estar atento."
 		for i in self.vecinos:
-			print(i)
-
+			enviarCorreo("Alerta Inundacion Automatica",mensaje,i)
 
 
 #MAIN
-#time.sleep(40)
+time.sleep(60)
+print("Listo...")
 p=Prediccion()
-'''
+
 rep=10
 while True:
 	#Predice
 	#Agrega a la base de datos
 	for i in range(rep):
 		p.controlUltimoValor+=1
-		bd.updateOrSet(str(p.controlUltimoValor),"nivel_agua",p.predecirSig(p.controlUltimoValor))
+		valorSiguiente=predecirSig(p.controlUltimoValor)
+		bd.updateOrSet(str(p.controlUltimoValor),"nivel_agua",valorSiguiente)
+
+		if (valorSiguiente>3):
+			p.alerta()
 	
 	print(p.ultimoDB,"ultimoDB")
 	#espera
@@ -117,8 +122,5 @@ while True:
 		if(abs(p.ultimoDB-bd.getData('x','Contador'))>2):
 			break
 		else:
-			print("Not today")
-
+			next
 	p.escribirCSV()		
-
-'''
