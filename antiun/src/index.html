@@ -19,6 +19,7 @@
                 <li><a href="./estadisticas.html">Estadísticas</a></li>
                 <li><a href="./vecinos.html">Vecinos</a></li>
                 <li><a href="./Autores.html">Acerca de</a></li>
+                <li><a onclick="cerrarSesion()" id="cerrarSBtn">Cerrar Sesión</a></li>
             </ul>
         </div>
     </nav>
@@ -30,7 +31,8 @@
 
     <div class=" container " style="font-family: 'BEARSKIN DEMO', 'Open Sans', 'Arial' ">
         <h3>¡Bienvenido!</h3>
-        <p>Fulano Fulanito</p>
+        
+        <p>Oscar Perez</p>
 
         <br><br><br><br><br><br>
 
@@ -44,16 +46,21 @@
         <br>
 
         <a href="./estadisticas.html" class="btn waves-effect blue lighten-2 pulse ">Ver más</a>
+        
 
     </div>
     </div>
-
+    <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
+    <script src="fnsFirebase.js"></script>
+    <script>
+            window.$ = window.jQuery = require('../node_modules/jquery');
+    </script>
     <script>
         const electron = require('electron');
         const {
             ipcRenderer
         } = electron;
-
+        connectDatabase();
         document.body.style.backgroundImage = "url( '../Imgs/Inicio1.png') ";
     </script>
 

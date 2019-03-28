@@ -208,6 +208,24 @@ function recuperar() {
     });
 };
 
+function cerrarSesion() {
+
+    firebase.auth().languageCode = 'es';
+    firebase.auth().signOut().then(function() {
+        // Sign-out successful.
+        document.location.href = 'login.html';
+      }).catch(function(error) {
+        // An error happened.
+        window.alert("No se ha podido cerrar sesión");
+      });
+};
+
+function ObtenerUsuario() {
+    var myVar = firebase.auth().currentUser;
+    var myVar=myVar.value
+    window.alert(myVar);
+};
+
 function actualizar_datos_agua() {
     let tabla_datos = document.getElementById("tabla_datos");
     let tbody = document.getElementById("tableBody");

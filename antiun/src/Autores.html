@@ -18,6 +18,7 @@
                 <li><a href="./estadisticas.html">Estadísticas</a></li>
                 <li><a href="./vecinos.html">Vecinos</a></li>
                 <li class="active"><a href="./Autores.html">Acerca de</a></li>
+                <li><a onclick="cerrarSesion()" id="cerrarSBtn">Cerrar Sesión</a></li>
             </ul>
         </div>
     </nav>
@@ -92,7 +93,8 @@
             style="margin:20px">Regresar</a>
 
     </div>
-
+    <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
+    <script src="fnsFirebase.js"></script>
     <script src="generalFns.js"></script>
 
     <script>
@@ -100,6 +102,7 @@
         const {
             ipcRenderer
         } = electron;
+        connectDatabase();
     </script>
 
 </body>
