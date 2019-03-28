@@ -22,7 +22,7 @@ function iniciarSesion() {
     var userInput = document.getElementById("userInput");
     var passwordInput = document.getElementById("passwordInput");
 
-    var userData = userInput.value + "@gmail.com";
+    var userData = userInput.value;
     var passwordData = passwordInput.value;
     firebase.auth().languageCode = 'es';
     firebase.auth().signInWithEmailAndPassword(userData, passwordData).then(function() {
@@ -197,7 +197,7 @@ function eliminarVecino() {
 
 function recuperar() {
 
-    var emailAddress = document.getElementById("recuperar");
+    var emailAddress = document.getElementById("userInput");
     var email = emailAddress.value;
     firebase.auth().languageCode = 'es';
     firebase.auth().sendPasswordResetEmail(email).then(function() {
