@@ -5,7 +5,7 @@ function goBack() {
 }
 
 function CustomAlert() {
-    this.render = function (dialog) {
+    this.render = function(dialog) {
         var winW = window.innerWidth;
         var winH = window.innerHeight;
         var dialogoverlay = document.getElementById('dialogoverlay');
@@ -19,7 +19,7 @@ function CustomAlert() {
         document.getElementById('dialogboxbody').innerHTML = dialog;
         document.getElementById('dialogboxfoot').innerHTML = '<button onclick="Alert.ok()">OK</button>';
     }
-    this.ok = function () {
+    this.ok = function() {
         document.getElementById('dialogbox').style.display = "none";
         document.getElementById('dialogoverlay').style.display = "none";
     }
@@ -34,7 +34,7 @@ function deletePost(id) {
 }
 
 function CustomConfirm() {
-    this.render = function (dialog, op) {
+    this.render = function(dialog, op) {
         let winW = window.innerWidth;
         let winH = window.innerHeight;
 
@@ -59,11 +59,11 @@ function CustomConfirm() {
         dialogboxbody.innerHTML = dialog;
         dialogboxfoot.innerHTML = '<button onclick="Confirm.yes(\'' + op + '\')">Enviar correo</button> <button onclick="Confirm.no()">Cancelar</button>';
     }
-    this.no = function () {
+    this.no = function() {
         document.getElementById('dialogbox').style.display = "none";
         document.getElementById('dialogoverlay').style.display = "none";
     }
-    this.yes = function (op) {
+    this.yes = function(op) {
 
         if (op == "amarillo") {
             toastMensaje('Enviando mensaje de alerta amarilla');
@@ -83,7 +83,7 @@ function toastMensaje(mensaje) {
         html: mensaje,
         classes: 'rounded'
     });
-    setTimeout(function () {
+    setTimeout(function() {
         M.toast({
             html: '¡Mensajes enviados!',
             classes: 'rounded'
