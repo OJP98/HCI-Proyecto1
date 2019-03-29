@@ -2,6 +2,8 @@
 
 const src = "https://www.gstatic.com/firebasejs/5.7.1/firebase.js";
 
+var CerrarSesionConfirm = new CerrarSesionConfirm();
+
 function connectDatabase() {
     // Initialize Firebase
     var config = {
@@ -174,11 +176,13 @@ function agregarVecino() {
 function eliminarVecino() {
 
     let form = document.getElementById("eliminarForm");
-
-    let vecino_id = document.getElementById("id_vecino2").value;
+    let vecino_id_input = document.getElementById("id_vecino2");
+    let vecino_id = vecino_id_input.value;
 
     if (vecino_id == "") {
         window.alert("Por favor, ingrese el ID de un vecino.");
+    } else if (vecino_id <= 0) {
+        vecino_id_input.className = "validate invalid"
     } else {
 
         firebase.database().ref('Vecinos/' + vecino_id).remove().then(function() {
@@ -191,7 +195,12 @@ function eliminarVecino() {
             obtenerVecinos().then(function() {
                 form.reset();
             });
+
+        }).catch(function(error) {
+
+            vecino_id_input.className = "validate invalid";
         });
+
     }
 };
 
@@ -208,33 +217,39 @@ function recuperar() {
     });
 };
 
+
 function cerrarSesion() {
 
-    firebase.auth().languageCode = 'es';
-    firebase.auth().signOut().then(function() {
-        // Sign-out successful.
-        document.location.href = 'login.html';
-      }).catch(function(error) {
-        // An error happened.
-        window.alert("No se ha podido cerrar sesión");
-      });
+    CerrarSesionConfirm.render('¿Quiere cerrar la sesión?');
 };
 
-function ObtenerUsuario() {
-    var myVar = firebase.auth().currentUser;
-    var myVar=myVar.value
-    window.alert(myVar);
+function ObtenerNombreUsuario() {
+
+    let nombreUsuario = document.getElementById("nombreUsuario");
+    let contenido = document.getElementById("contenidoGeneral");
+    let loader = document.getElementById("loader");
+
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            let user = (firebase.auth().currentUser)["email"];
+            nombreUsuario.innerHTML = user.substring(0, user.indexOf('@'));
+            loader.style.display = 'none';
+            contenido.style.display = 'block';
+            document.body.style.backgroundImage = "url( '../Imgs/Inicio1.png') ";
+        } else {
+            document.location.href = 'login.html';
+        }
+    });
 };
 
 function actualizar_datos_agua() {
+
     let tabla_datos = document.getElementById("tabla_datos");
     let tbody = document.getElementById("tableBody");
     let query = firebase.database().ref("Datos");
+    let loader = document.getElementById("loader");
 
     query.once("value").then(function(snapshot) {
-
-        console.log(snapshot.numChildren());
-
         snapshot.forEach(function(childSnapshot) {
 
             let key = childSnapshot.key;
@@ -268,6 +283,56 @@ function actualizar_datos_agua() {
             celdaPrediccion.appendChild(nivelAgua2);
         });
     }).then(function() {
+        loader.style.display = "none";
         tabla_datos.style.display = "inline-table";
     });
+}
+
+
+function CerrarSesionConfirm() {
+
+    this.render = function(dialog, op) {
+        let winW = window.innerWidth;
+        let winH = window.innerHeight;
+
+        let dialogoverlay = document.getElementById('dialogoverlay');
+        let dialogbox = document.getElementById('dialogbox');
+        let dialogboxbody = document.getElementById('dialogboxbody');
+        let dialogboxfoot = document.getElementById('dialogboxfoot');
+        let dialogboxhead = document.getElementById('dialogboxhead');
+
+        dialogoverlay.style.display = "block";
+        dialogoverlay.style.height = winH + "px";
+
+        dialogbox.style.left = (winW / 2) - (550 * .5) + "px";
+        dialogbox.style.top = "100px";
+        dialogbox.style.display = "block";
+
+        // dialogboxhead.style.backgroundColor = "#64b5f6";
+        // dialogboxfoot.style.backgroundColor = "#64b5f6";
+        // dialogboxbody.style.backgroundColor = "#bbdefb";
+
+        dialogboxhead.innerHTML = "Ventana de confirmación";
+        dialogboxbody.innerHTML = dialog;
+        dialogboxfoot.innerHTML = '<button onclick="CerrarSesionConfirm.yes(\'' + op + '\')">Cerrar sesión</button> <button onclick="CerrarSesionConfirm.no()">Cancelar</button>';
+    }
+    this.no = function() {
+        document.getElementById('dialogbox').style.display = "none";
+        document.getElementById('dialogoverlay').style.display = "none";
+    }
+    this.yes = function() {
+
+        firebase.auth().languageCode = 'es';
+        firebase.auth().signOut().then(function() {
+
+            // Sign-out successful.
+            document.location.href = 'login.html';
+        }).catch(function(error) {
+            // An error happened.
+            window.alert("No se ha podido cerrar sesión");
+        });
+
+        document.getElementById('dialogbox').style.display = "none";
+        document.getElementById('dialogoverlay').style.display = "none";
+    }
 }

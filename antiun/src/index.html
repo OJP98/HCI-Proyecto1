@@ -25,18 +25,48 @@
     </nav>
 </div>
 
-<body style="background-size: 83%; background-repeat: no-repeat; background-position: 50% 20%; background-color: #F3F6FF">
+<!-- PANTALLA DE CARGA -->
+<div id="loader" class="container" style="text-align:center; display: block">
+    <br><br><br><br><br>
+    <div class="preloader-wrapper active">
+        <div class="spinner-layer spinner-green-only">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+                <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <p>Cargando pantalla principal</p>
+</div>
+
+<body id="contenidoGeneral" style="display: none; background-size: 83%; background-repeat: no-repeat; background-position: 50% 20%; background-color: #F3F6FF">
 
     <br>
 
+    <!-- CAJA DE CONFIRMACION -->
+    <div id="dialogoverlay"></div>
+    <div id="dialogbox">
+        <div>
+            <div id="dialogboxhead"></div>
+            <div id="dialogboxbody"></div>
+            <div id="dialogboxfoot"></div>
+        </div>
+    </div>
+
     <div class=" container " style="font-family: 'BEARSKIN DEMO', 'Open Sans', 'Arial' ">
         <h3>¡Bienvenido!</h3>
-        
-        <p>Oscar Perez</p>
+
+        <h4 style="padding-left:15px" id="nombreUsuario">Default User</h4>
 
         <br><br><br><br><br><br>
 
-        <h4>PREVENIR:</h4>
+        <h3>PREVENIR:</h3>
 
         <p style="text-align:justify; left: -30px ">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas <br /> tempus dignissim tellus, vitae malesuada lorem accumsan non. Orci <br /> varius natoque penatibus et magnis dis parturient montes, nascetur
@@ -46,22 +76,23 @@
         <br>
 
         <a href="./estadisticas.html" class="btn waves-effect blue lighten-2 pulse ">Ver más</a>
-        
 
-    </div>
     </div>
     <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
     <script src="fnsFirebase.js"></script>
+
     <script>
-            window.$ = window.jQuery = require('../node_modules/jquery');
+        window.$ = window.jQuery = require('../node_modules/jquery');
     </script>
+
     <script>
         const electron = require('electron');
         const {
             ipcRenderer
         } = electron;
+
         connectDatabase();
-        document.body.style.backgroundImage = "url( '../Imgs/Inicio1.png') ";
+        ObtenerNombreUsuario();
     </script>
 
 </body>
