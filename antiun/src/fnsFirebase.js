@@ -27,11 +27,11 @@ function iniciarSesion() {
     var userData = userInput.value;
     var passwordData = passwordInput.value;
     firebase.auth().languageCode = 'es';
-    firebase.auth().signInWithEmailAndPassword(userData, passwordData).then(function() {
+    firebase.auth().signInWithEmailAndPassword(userData, passwordData).then(function () {
 
         document.location.href = 'index.html';
 
-    }).catch(function(error) {
+    }).catch(function (error) {
         var errorMessage = error.message;
         var errorCode = error.code;
         if (errorCode == "auth/invalid-email") {
@@ -59,13 +59,13 @@ function crearUsuario() {
     var passwordData2 = passwordInput2.value;
 
     if (passwordData1 == passwordData2) {
-        firebase.auth().createUserWithEmailAndPassword(userData, passwordData1).then(function() {
+        firebase.auth().createUserWithEmailAndPassword(userData, passwordData1).then(function () {
 
             window.alert("El usuario ha sido creado");
             document.location.href = 'login.html';
 
 
-        }).catch(function(error) {
+        }).catch(function (error) {
             // Handle Errors here.
             var errorMessage = error.message;
             var errorCode = error.code;
@@ -85,7 +85,7 @@ function crearUsuario() {
 
 async function existenDatos(variable) {
     const ref = firebase.database().ref(variable);
-    ref.once("value").then(function(snapshot) {
+    ref.once("value").then(function (snapshot) {
         return snapshot.exists();
     });
 };
@@ -103,8 +103,8 @@ async function obtenerVecinos() {
 
         var query = firebase.database().ref("Vecinos");
 
-        query.once("value").then(function(snapshot) {
-            snapshot.forEach(function(childSnapshot) {
+        query.once("value").then(function (snapshot) {
+            snapshot.forEach(function (childSnapshot) {
 
                 var key = childSnapshot.key;
                 var childData = childSnapshot.val();
@@ -126,7 +126,7 @@ async function obtenerVecinos() {
                 celdaArea.appendChild(area);
                 celdaCorreo.appendChild(correo);
             });
-        }).then(function() {
+        }).then(function () {
             loader.style.display = "none";
             tabla_vecinos.style.display = "inline-table";
         });
@@ -163,7 +163,7 @@ function agregarVecino() {
 
         document.getElementById("tabla_vecinos").style.display = "none";
         document.getElementById("loader").style.display = "block";
-        obtenerVecinos().then(function() {
+        obtenerVecinos().then(function () {
             window.alert("Vecino agregado con éxito!");
 
             form.reset();
@@ -185,18 +185,18 @@ function eliminarVecino() {
         vecino_id_input.className = "validate invalid"
     } else {
 
-        firebase.database().ref('Vecinos/' + vecino_id).remove().then(function() {
+        firebase.database().ref('Vecinos/' + vecino_id).remove().then(function () {
             window.alert("Vecino eliminado con éxito!");
             document.getElementById("tabla_vecinos").style.display = "none";
             document.getElementById("loader").style.display = "block";
 
             $("#tabla_vecinos tbody tr").remove();
 
-            obtenerVecinos().then(function() {
+            obtenerVecinos().then(function () {
                 form.reset();
             });
 
-        }).catch(function(error) {
+        }).catch(function (error) {
 
             vecino_id_input.className = "validate invalid";
         });
@@ -209,10 +209,10 @@ function recuperar() {
     var emailAddress = document.getElementById("userInput");
     var email = emailAddress.value;
     firebase.auth().languageCode = 'es';
-    firebase.auth().sendPasswordResetEmail(email).then(function() {
+    firebase.auth().sendPasswordResetEmail(email).then(function () {
         window.alert("El correo ha sido enviado");
         document.location.href = 'login.html';
-    }).catch(function(error) {
+    }).catch(function (error) {
         window.alert("Ingrese un correo valido");
     });
 };
@@ -229,7 +229,7 @@ function ObtenerNombreUsuario() {
     let contenido = document.getElementById("contenidoGeneral");
     let loader = document.getElementById("loader");
 
-    firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             let user = (firebase.auth().currentUser)["email"];
             nombreUsuario.innerHTML = user.substring(0, user.indexOf('@'));
@@ -249,28 +249,34 @@ function actualizar_datos_agua() {
     let query = firebase.database().ref("Datos");
     let loader = document.getElementById("loader");
 
-    query.once("value").then(function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
+    query.once("value").then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
 
             let key = childSnapshot.key;
             let childData = childSnapshot.val();
 
+            let nivelAguaPred;
+            let hora_minuto;
+
             if (key == "x")
                 return true;
 
-            if (typeof childData["hora"] === 'undefined')
-                return true;
+            // if (typeof childData["hora"] === 'undefined')
+            //     return true;
 
-
-
-            let dia = document.createTextNode(childData["dia"]);
-            let minuto = document.createTextNode(childData["minuto"]);
-            let hora = document.createTextNode(childData["hora"]);
+            let dia = document.createTextNode(childData["dia"]);;
             let mes = document.createTextNode(childData["mes"]);
-            let nivelAgua1 = document.createTextNode(childData["nivel_agua"]);
-            let nivelAgua2 = document.createTextNode(childData["nivel_agua"]);
+            let nivelAgua = document.createTextNode(childData["nivel_agua"]);
 
-            let hora_minuto = document.createTextNode(childData["hora"] + ":" + childData["minuto"]);
+            if (typeof childData["nivel_agua_p"] === 'undefined')
+                nivelAguaPred = document.createTextNode("---")
+            else
+                nivelAguaPred = document.createTextNode(childData["nivel_agua_p"]);
+
+            if (typeof childData["hora"] === 'undefined')
+                hora_minuto = document.createTextNode("X:Y")
+            else
+                hora_minuto = document.createTextNode(childData["hora"] + ":" + childData["minuto"]);
 
             let newRow = tbody.insertRow(-1);
 
@@ -279,10 +285,10 @@ function actualizar_datos_agua() {
             let celdaPrediccion = newRow.insertCell(2);
 
             celdaFecha.appendChild(hora_minuto);
-            celdaNivelAgua.appendChild(nivelAgua1);
-            celdaPrediccion.appendChild(nivelAgua2);
+            celdaNivelAgua.appendChild(nivelAgua);
+            celdaPrediccion.appendChild(nivelAguaPred);
         });
-    }).then(function() {
+    }).then(function () {
         loader.style.display = "none";
         tabla_datos.style.display = "inline-table";
     });
@@ -291,7 +297,7 @@ function actualizar_datos_agua() {
 
 function CerrarSesionConfirm() {
 
-    this.render = function(dialog, op) {
+    this.render = function (dialog, op) {
         let winW = window.innerWidth;
         let winH = window.innerHeight;
 
@@ -316,18 +322,18 @@ function CerrarSesionConfirm() {
         dialogboxbody.innerHTML = dialog;
         dialogboxfoot.innerHTML = '<button onclick="CerrarSesionConfirm.yes(\'' + op + '\')">Cerrar sesión</button> <button onclick="CerrarSesionConfirm.no()">Cancelar</button>';
     }
-    this.no = function() {
+    this.no = function () {
         document.getElementById('dialogbox').style.display = "none";
         document.getElementById('dialogoverlay').style.display = "none";
     }
-    this.yes = function() {
+    this.yes = function () {
 
         firebase.auth().languageCode = 'es';
-        firebase.auth().signOut().then(function() {
+        firebase.auth().signOut().then(function () {
 
             // Sign-out successful.
             document.location.href = 'login.html';
-        }).catch(function(error) {
+        }).catch(function (error) {
             // An error happened.
             window.alert("No se ha podido cerrar sesión");
         });
