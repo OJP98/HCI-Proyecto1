@@ -47,7 +47,7 @@ class Prediccion(object):
 				csvfile.close()
 				self.controlUltimoValor=self.ultimoDB
 
-		bd.updateOrSet('y','Contador',int(self.controlUltimoValor))
+
 
 
 	def agregarCSV(self,hora,nivel):
@@ -91,7 +91,7 @@ class Prediccion(object):
 			self.vecinos.append(bd.getVecino(str(i),'correo'))
 
 	def alerta(self):
-		self.getVecino()
+		self.getAllVecinos()
 		mensaje="El programa ha detectado un crecimiento acelerado del nivel del agua, por favor estar atento."
 		for i in self.vecinos:
 			enviarCorreo("Alerta Inundacion Automatica",mensaje,i)
@@ -104,14 +104,16 @@ p=Prediccion()
 
 rep=10
 while True:
+	varControl=True
 	#Predice
 	#Agrega a la base de datos
 	for i in range(rep):
 		p.controlUltimoValor+=1
-		valorSiguiente=predecirSig(p.controlUltimoValor)
+		valorSiguiente=p.predecirSig(p.controlUltimoValor)
 		bd.updateOrSet(str(p.controlUltimoValor),"nivel_agua",valorSiguiente)
 
-		if (valorSiguiente>3):
+		if (valorSiguiente>3 and varControl):
+			varControl=False
 			p.alerta()
 	
 	print(p.ultimoDB,"ultimoDB")
