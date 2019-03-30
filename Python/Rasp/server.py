@@ -110,7 +110,9 @@ while True:
 	for i in range(rep):
 		p.controlUltimoValor+=1
 		valorSiguiente=p.predecirSig(p.controlUltimoValor)
-		bd.updateOrSet(str(p.controlUltimoValor),"nivel_agua",valorSiguiente)
+		bd.updateOrSet(str(p.controlUltimoValor),"nivel_agua_p",valorSiguiente)
+
+		bd.updateOrSet("y","Contador",p.controlUltimoValor)
 
 		if (valorSiguiente>3 and varControl):
 			varControl=False
