@@ -16,7 +16,8 @@ const createWindow = () => {
         width: 1280,
         height: 1080,
     });
-    //mainWindow.setMenuBarVisibility(false);
+
+    mainWindow.setMenuBarVisibility(true);
 
     // and load the index.html of the app.
     mainWindow.loadURL(`file://${__dirname}/login.html`);

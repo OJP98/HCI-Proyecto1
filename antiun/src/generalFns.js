@@ -90,3 +90,22 @@ function toastMensaje(mensaje) {
         });
     }, 4500);
 }
+
+
+function sumarTiempo(horas, minutos, suma_tiempo) {
+    minutos += suma_tiempo;
+    horas = Number(horas);
+
+    if (minutos >= 60) {
+        minutos %= 60;
+        horas += 1;
+    }
+
+    if (minutos < 10)
+        minutos = "0" + minutos;
+
+    console.log(minutos);
+    horas = horas % 24;
+
+    return (horas + ":" + minutos);
+}
