@@ -159,7 +159,7 @@
 
         <!-- Boton para guardar y cancelar -->
         <div style="text-align:center">
-            <a style="margin-left:15px" class="btn waves-effect waves-light orange" onclick="eliminarVecino()" id="editBtn">
+            <a style="margin-left:15px" class="btn waves-effect waves-light orange" onclick="eliminarVecino()" id="elimBtn">
                 <i class="large material-icons left">delete_forever</i>Eliminar</a>
 
             <a style="margin-left:15px" class="btn waves-effect waves-light orange" id="cancelarBtn2">
@@ -174,11 +174,23 @@
         <p>Ingrese el ID del vecino del cual quiere editar los datos.</p>
         <form class="col s12" id="editarForm">
             <div class="row">
-                <div class="input-field col s4">
+                <div class="input-field col s2">
                     <i class="material-icons prefix">accessibility</i>
-                    <input id="id_vecino2" type="number" class="validate" required>
-                    <label for="id_vecino2">ID</label>
+                    <input id="id_vecino3" type="number" class="validate" required>
+                    <label for="id_vecino3">ID</label>
                     <span class="helper-text" data-error="Por favor ingrese un ID válido">Ingrese un ID</span>
+                </div>
+                <div class="input-field col s5">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input id="name_icon3" type="text" class="validate" required>
+                    <label for="name_icon3">Nombre</label>
+                    <span class="helper-text" data-error="El campo tiene que existir" data-success="Ingreso válido">Ingrese un nombre</span>
+                </div>
+                <div class="input-field col s5">
+                    <i class="material-icons prefix">mail_outline</i>
+                    <input id="mail_icon3" type="email" class="validate" required>
+                    <label for="mail_icon3">Correo</label>
+                    <span class="helper-text" data-error="Por favor, ingrese un correo válido" data-success="Ingreso válido">Ingrese el correo electrónico</span>
                 </div>
             </div>
         </form>
@@ -186,7 +198,7 @@
 
         <!-- Boton para guardar y cancelar -->
         <div style="text-align:center">
-            <a style="margin-left:15px" class="btn waves-effect waves-light orange" onclick="eliminarVecino()" id="editBtn">
+            <a style="margin-left:15px" class="btn waves-effect waves-light orange" onclick="editarVecino()" id="editBtn3">
                 <i class="large material-icons left">edit</i>Editar</a>
 
             <a style="margin-left:15px" class="btn waves-effect waves-light orange" id="cancelarBtn3">

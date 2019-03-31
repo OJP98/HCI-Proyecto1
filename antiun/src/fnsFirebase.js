@@ -113,6 +113,7 @@ async function obtenerVecinos() {
                 var nombre = document.createTextNode(childData["nombre"]);
                 var area = document.createTextNode(childData["area"]);
                 var correo = document.createTextNode(childData["correo"]);
+                console.log(correo);
 
                 let newRow = tbody.insertRow(-1);
 
@@ -203,7 +204,89 @@ function eliminarVecino() {
 
     }
 };
+async function obtenerVecinos2() {
+    console.log("hola")
 
+    var correo_input = document.getElementById("mail_icon7");
+    var correo_val= correo_input.value
+    let hayDatos = true;
+
+    if (hayDatos) {
+
+        var query = firebase.database().ref("Vecinos");
+
+        query.once("value").then(function (snapshot) {
+            snapshot.forEach(function (childSnapshot) {
+
+                var key = childSnapshot.key;
+                var childData = childSnapshot.val();
+
+                var id = document.createTextNode(key);
+                var correo = document.createTextNode(childData["correo"]);
+                var correo_val2= correo.value
+                console.log(correo_val)
+                console.log(correo)
+                console.log(id)
+                console.log(correo_val.localeCompare(correo_val2))
+
+                if(correo==correo_val){
+                    console.log(id);
+                    firebase.database().ref('Vecinos/' + parseInt(id)).remove().then(function () {
+                        window.alert("Vecino eliminado con éxito!");
+                        document.getElementById("tabla_vecinos").style.display = "none";
+                        document.getElementById("loader").style.display = "block";
+                        return true;
+                        $("#tabla_vecinos tbody tr").remove();
+            
+                        obtenerVecinos().then(function () {
+                            form.reset();
+                        });
+            
+                    }).catch(function (error) {
+            
+                        vecino_id_input.className = "validate invalid";
+                    });
+                }
+
+            });
+        })
+    }
+};
+function editarVecino() {
+
+    let form = document.getElementById("editarForm");
+    let vecino_id_input = document.getElementById("id_vecino3");
+    let vecino_id = vecino_id_input.value;
+    let vecino_name_input = document.getElementById("name_icon3");
+    let vecino_name = vecino_name_input.value;
+    let vecino_mail_input = document.getElementById("mail_icon3");
+    let vecino_mail = vecino_mail_input.value;
+
+    if (vecino_id == "") {
+        window.alert("Por favor, ingrese el ID de un vecino.");
+    } else if (vecino_id <= 0) {
+        vecino_id_input.className = "validate invalid"
+    } else {
+
+        firebase.database().ref('Vecinos/' + vecino_id).set({
+            nombre: vecino_name,
+            area: "Antigua Guatemala",
+            correo: vecino_mail
+
+         
+            });
+        }
+        $("#tabla_vecinos tbody tr").remove();
+        obtenerVecinos().then(function () {
+            window.alert("Vecino editado con éxito!");
+
+            form.reset();
+
+        });
+};
+function verData(){
+    console.log(firebase.database().ref("Vecinos"));
+}
 function recuperar() {
 
     var emailAddress = document.getElementById("userInput");
