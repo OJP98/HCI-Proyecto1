@@ -316,7 +316,7 @@ function cerrarSesion() {
 };
 
 
-function ObtenerNombreUsuario() {
+function cargarMenuPrincipal() {
 
     let nombreUsuario = document.getElementById("nombreUsuario");
     let contenido = document.getElementById("contenidoGeneral");
@@ -326,9 +326,9 @@ function ObtenerNombreUsuario() {
         if (user) {
             let user = (firebase.auth().currentUser)["email"];
             nombreUsuario.innerHTML = user.substring(0, user.indexOf('@'));
+            GetNivelAguaActual();
             loader.style.display = 'none';
             contenido.style.display = 'block';
-            document.body.style.backgroundImage = "url( '../Imgs/Inicio1.png') ";
         } else {
             document.location.href = 'login.html';
         }
@@ -366,7 +366,7 @@ function actualizar_datos_agua() {
                 return true;
 
             // Obitene datos generales
-            let dia = document.createTextNode(childData["dia"]);;
+            let dia = document.createTextNode(childData["dia"]);
             let mes = document.createTextNode(childData["mes"]);
 
 
@@ -479,4 +479,42 @@ function CerrarSesionConfirm() {
         document.getElementById('dialogbox').style.display = "none";
         document.getElementById('dialogoverlay').style.display = "none";
     }
-}
+};
+
+
+function GetNivelAguaActual() {
+
+    let ultimo_nivel_agua;
+    let urlImagen = "";
+    let query = firebase.database().ref("Datos");
+
+    query.once("value").then(function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+
+            let key = childSnapshot.key;
+            let childData = childSnapshot.val();
+
+            if (typeof childData["nivel_agua"] === 'undefined') {
+
+                switch (ultimo_nivel_agua) {
+                    case 0:
+                        urlImagen = "url( '../Imgs/Inicio0.png')";
+                        break;
+                    case 1:
+                        urlImagen = "url( '../Imgs/Inicio1.png')";
+                        break;
+                    case 2:
+                        urlImagen = "url( '../Imgs/Inicio2.png')";
+                        break;
+                    case 3:
+                        urlImagen = "url( '../Imgs/Inicio3.png')";
+                        break
+                }
+                document.body.style.backgroundImage = urlImagen;
+
+            } else {
+                ultimo_nivel_agua = childData["nivel_agua"];
+            }
+        });
+    });
+};
