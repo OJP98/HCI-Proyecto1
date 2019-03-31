@@ -104,8 +104,7 @@ function sumarTiempo(horas, minutos, suma_tiempo) {
     if (minutos < 10)
         minutos = "0" + minutos;
 
-    console.log(minutos);
     horas = horas % 24;
 
     return (horas + ":" + minutos);
-}
+};

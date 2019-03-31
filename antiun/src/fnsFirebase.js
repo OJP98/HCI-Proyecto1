@@ -233,7 +233,7 @@ async function obtenerVecinos2() {
                 console.log(id)
                 console.log(correo_val.localeCompare(correo_val2))
 
-                if (correo == correo_val) {
+                if (correo === correo_val) {
                     console.log(id);
                     firebase.database().ref('Vecinos/' + parseInt(id)).remove().then(function() {
                         window.alert("Vecino eliminado con éxito!");
@@ -340,17 +340,17 @@ function actualizar_datos_agua() {
 
     let tabla_datos = document.getElementById("tabla_datos");
     let tbody = document.getElementById("tableBody");
-    let query = firebase.database().ref("Datos");
+    let query = firebase.database().ref("Datos").limitToLast(12);
     let loader = document.getElementById("loader");
 
     var items = [];
     let ultima_hora = "0";
     let hora;
     let minutos;
-    let time;
 
 
     query.once("value").then(function(snapshot) {
+
         snapshot.forEach(function(childSnapshot) {
 
             // Inicialización de variables
