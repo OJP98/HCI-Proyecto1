@@ -208,9 +208,9 @@ function eliminarVecino() {
 };
 
 
-async function obtenerVecinos2() {
+async function eliminarVecino2() {
     console.log("hola")
-
+    let form = document.getElementById("eliminarForm");
     var correo_input = document.getElementById("mail_icon7");
     var correo_val = correo_input.value
     let hayDatos = true;
@@ -226,20 +226,16 @@ async function obtenerVecinos2() {
                 var childData = childSnapshot.val();
 
                 var id = document.createTextNode(key);
-                var correo = document.createTextNode(childData["correo"]);
+                var correo = childData["correo"];
                 var correo_val2 = correo.value
-                console.log(correo_val)
-                console.log(correo)
-                console.log(id)
-                console.log(correo_val.localeCompare(correo_val2))
+
 
                 if (correo === correo_val) {
-                    console.log(id);
-                    firebase.database().ref('Vecinos/' + parseInt(id)).remove().then(function() {
+
+                    firebase.database().ref('Vecinos/' + key).remove().then(function() {
                         window.alert("Vecino eliminado con éxito!");
                         document.getElementById("tabla_vecinos").style.display = "none";
                         document.getElementById("loader").style.display = "block";
-                        return true;
                         $("#tabla_vecinos tbody tr").remove();
 
                         obtenerVecinos().then(function() {
@@ -255,7 +251,45 @@ async function obtenerVecinos2() {
         })
     }
 };
-
+async function editarVecino2() {
+    let form = document.getElementById("editarForm");
+    var correo_input = document.getElementById("mail_icon3");
+    var correo_val = correo_input.value
+    let hayDatos = true;
+    if (hayDatos) {
+        var query = firebase.database().ref("Vecinos");
+        query.once("value").then(function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+                var key = childSnapshot.key;
+                var childData = childSnapshot.val();
+                var id = document.createTextNode(key);
+                var correo = childData["correo"];
+                var correo_val2 = correo.value
+                if (correo === correo_val) {
+                    let form = document.getElementById("editarForm");
+                    let vecino_name_input = document.getElementById("name_icon3");
+                    let vecino_name = vecino_name_input.value;
+                    let vecino_mail_input = document.getElementById("mail_icon3");
+                    let vecino_mail = vecino_mail_input.value;
+                    firebase.database().ref('Vecinos/' + key).set({
+                        nombre: vecino_name,
+                        area: "Antigua Guatemala",
+                        correo: vecino_mail
+                        });
+                    
+                    $("#tabla_vecinos tbody tr").remove();
+                    obtenerVecinos().then(function() {
+                        window.alert("Vecino editado con éxito!");
+                        form.reset();
+                
+                    });
+                }else{
+                    window.alert("El correo no existe, por favor verificar");
+                }
+            });
+        });
+    }
+};
 
 function editarVecino() {
 
