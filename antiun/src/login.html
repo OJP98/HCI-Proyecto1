@@ -31,12 +31,14 @@
                 <span class="helper-text">Ingrese su contraseña asociada</span>
             </div class="input-field">
 
-            <br><br>
+            <br>
 
             <div style="text-align:center">
                 <a onclick="iniciarSesion()" id="ingresarBtn" class="waves-effect waves-light blue darken-4 btn" style="margin:20px">Ingresar</a>
-                <a onclick="document.location.href = 'register.html';" id="RegistroBtn" accesskey="r" class="waves-effect waves-light blue darken-4 btn" style="margin:20px">Registrarse</a>
-                <a onclick="document.location.href = 'restorePass.html';" id="RecuperarBtn" accesskey="t" class="waves-effect waves-light blue darken-4 btn" style="margin:20px">Recuperar Contraseña</a>
+                <a onclick="document.location.href = 'register.html';" id="RegistroBtn" accesskey="r" class="waves-effect waves-light blue darken-4 btn" style="margin:20px">Registrarse</a></ br>
+                <p>¿Olvidaste tu contraseña?
+                    <a href="" onclick="document.location.href = 'restorePass.html';" id="RecuperarBtn" accesskey="t"> ¡Click aquí!</a>
+                </p>
             </div>
         </div>
     </div>
@@ -62,30 +64,24 @@
         var input = document.getElementById("userInput");
         input.addEventListener("keyup", function(event) {
             // Number 13 is the "Enter" key on the keyboard
-        if (event.keyCode === 13) {
-            // Cancel the default action, if needed
-            event.preventDefault();
-            // Trigger the button element with a click
-            document.getElementById("ingresarBtn").click();
-        }
+            if (event.keyCode === 13) {
+                // Cancel the default action, if needed
+                event.preventDefault();
+                // Trigger the button element with a click
+                document.getElementById("ingresarBtn").click();
+            }
         });
 
         var input = document.getElementById("passwordInput");
         input.addEventListener("keyup", function(event) {
             // Number 13 is the "Enter" key on the keyboard
-        if (event.keyCode === 13) {
-            // Cancel the default action, if needed
-            event.preventDefault();
-            // Trigger the button element with a click
-            document.getElementById("ingresarBtn").click();
-        }
+            if (event.keyCode === 13) {
+                // Cancel the default action, if needed
+                event.preventDefault();
+                // Trigger the button element with a click
+                document.getElementById("ingresarBtn").click();
+            }
         });
-
-        
-
-
-
-
     </script>
 
 </body>

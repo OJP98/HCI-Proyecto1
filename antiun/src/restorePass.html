@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col s12" style="padding-left: 40%; padding-right: 5%;">
             <h1>Restaurar contraseña</h1>
-            <p style="text-align:center">Por favor, ingrese su correo para restauracion</p>
+            <p style="text-align:center">Por favor, ingrese su correo para restauración</p>
             <br>
 
             <div class="input-field">
@@ -23,11 +23,11 @@
                 <span class="helper-text">Ingrese su correo electrónico</span>
             </div class="input-field">
 
-            <br><br>
+            <br>
 
             <div style="text-align:center">
                 <a onclick="recuperar()" id="recuperarBtn" class="waves-effect waves-light blue darken-4 btn" style="margin:20px">Recuperar</a>
-                <a onclick="document.location.href = 'login.html';" id="AtrasBtn" accesskey="a" class="waves-effect waves-light blue darken-4 btn" style="margin:20px">Atras</a>
+                <a onclick="document.location.href = 'login.html';" id="AtrasBtn" accesskey="a" class="waves-effect waves-light blue darken-4 btn" style="margin:20px">Cancelar</a>
             </div>
         </div>
     </div>
@@ -51,15 +51,14 @@
 
         //comando enter para ingresar
         var input = document.getElementById("userInput");
-        input.addEventListener("keyup", function(event) 
-        {
+        input.addEventListener("keyup", function(event) {
             // Number 13 is the "Enter" key on the keyboard
-        if (event.keyCode === 13) {
-            // Cancel the default action, if needed
-            event.preventDefault();
-            // Trigger the button element with a click
-            document.getElementById("recuperarBtn").click();
-        }
+            if (event.keyCode === 13) {
+                // Cancel the default action, if needed
+                event.preventDefault();
+                // Trigger the button element with a click
+                document.getElementById("recuperarBtn").click();
+            }
         });
     </script>
 
