@@ -18,7 +18,7 @@
             <br>
 
             <div class="input-field">
-                <input id="userInput" type="email" class="validate" required>
+                <input id="userInput" type="email" tabindex=1 class="validate" required autofocus>
                 <label for="userInput">Correo electrónico</label>
                 <span class="helper-text" data-error="Por favor ingrese un correo válido" data-success="Correo válido">Ingrese su correo electrónico</span>
             </div class="input-field">
@@ -26,7 +26,7 @@
             <br>
 
             <div class="input-field">
-                <input id="passwordInput" type="password" class="validate" required>
+                <input id="passwordInput" type="password" tabindex=2 class="validate" required>
                 <label for="passwordInput">Contraseña</label>
                 <span class="helper-text">Ingrese su contraseña asociada</span>
             </div class="input-field">
@@ -35,8 +35,8 @@
 
             <div style="text-align:center">
                 <a onclick="iniciarSesion()" id="ingresarBtn" class="waves-effect waves-light blue darken-4 btn" style="margin:20px">Ingresar</a>
-                <a onclick="document.location.href = 'register.html';" id="RegistroBtn" class="waves-effect waves-light blue darken-4 btn" style="margin:20px">Registrarse</a>
-                <a onclick="document.location.href = 'restorePass.html';" id="RecuperarBtn" class="waves-effect waves-light blue darken-4 btn" style="margin:20px">Recuperar Contraseña</a>
+                <a onclick="document.location.href = 'register.html';" id="RegistroBtn" accesskey="r" class="waves-effect waves-light blue darken-4 btn" style="margin:20px">Registrarse</a>
+                <a onclick="document.location.href = 'restorePass.html';" id="RecuperarBtn" accesskey="t" class="waves-effect waves-light blue darken-4 btn" style="margin:20px">Recuperar Contraseña</a>
             </div>
         </div>
     </div>
@@ -57,6 +57,35 @@
         } = electron;
 
         connectDatabase();
+
+        //comando enter para iniciar sesion
+        var input = document.getElementById("userInput");
+        input.addEventListener("keyup", function(event) {
+            // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            document.getElementById("ingresarBtn").click();
+        }
+        });
+
+        var input = document.getElementById("passwordInput");
+        input.addEventListener("keyup", function(event) {
+            // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            document.getElementById("ingresarBtn").click();
+        }
+        });
+
+        
+
+
+
+
     </script>
 
 </body>

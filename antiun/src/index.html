@@ -13,13 +13,13 @@
 <div class="navbar-fixed">
     <nav style="position: absolute">
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo right" style="padding-right:15px">ANTINUN</a>
+            <a tabindex=5 href="#" class="brand-logo right" style="padding-right:15px">ANTINUN</a>
             <ul id="nav-mobile" class="left">
-                <li class="active"><a href="./index.html">Inicio</a></li>
-                <li><a href="./estadisticas.html">Estadísticas</a></li>
-                <li><a href="./vecinos.html">Vecinos</a></li>
-                <li><a href="./Autores.html">Acerca de</a></li>
-                <li><a onclick="cerrarSesion()" id="cerrarSBtn">Cerrar Sesión</a></li>
+                <li class="active"><a tabindex=6 href="./index.html">Inicio</a></li>
+                <li><a tabindex=1 href="./estadisticas.html">Estadísticas</a></li>
+                <li><a tabindex=2 href="./vecinos.html">Vecinos</a></li>
+                <li><a tabindex=3 href="./Autores.html">Acerca de</a></li>
+                <li><a tabindex=4 onclick="cerrarSesion()" id="cerrarSBtn">Cerrar Sesión</a></li>
             </ul>
         </div>
     </nav>
@@ -92,7 +92,8 @@
         } = electron;
 
         connectDatabase();
-        cargarMenuPrincipal();
+        cargarMenuPrincipal();   
+
     </script>
 
 </body>

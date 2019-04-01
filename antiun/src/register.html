@@ -18,7 +18,7 @@
             <br>
 
             <div class="input-field">
-                <input id="userInput" type="email" class="validate" required>
+                <input id="userInput" type="email" tabindex=1 class="validate" required autofocus>
                 <label for="userInput">Correo electrónico</label>
                 <span class="helper-text">Ingrese su correo electrónico</span>
             </div class="input-field">
@@ -26,13 +26,13 @@
             <br>
 
             <div class="input-field">
-                <input id="passwordInput1" type="password" class="validate" required>
+                <input id="passwordInput1" type="password" tabindex=2 class="validate" required>
                 <label for="passwordInput">Contraseña</label>
                 <span class="helper-text">Ingrese una contraseña con 6 o mas caracteres</span>
             </div class="input-field">
 
             <div class="input-field">
-                <input id="passwordInput2" type="password" class="validate" required>
+                <input id="passwordInput2" type="password" tabindex=3 class="validate" required>
                 <label for="passwordInput">Contraseña</label>
                 <span class="helper-text">Vuelva a ingresar la contraseña</span>
             </div class="input-field">
@@ -41,7 +41,7 @@
 
             <div style="text-align:center">
                 <a onclick="crearUsuario()" id="RegistroBtn" class="waves-effect waves-light blue darken-4 btn" style="margin:20px">Ingresar</a>
-                <a onclick="document.location.href = 'login.html';" id="AtrasBtn" class="waves-effect waves-light blue darken-4 btn" style="margin:20px">Atras</a>
+                <a onclick="document.location.href = 'login.html';" id="AtrasBtn" accesskey="a" class="waves-effect waves-light blue darken-4 btn" style="margin:20px">Atras</a>
             </div>
         </div>
     </div>
@@ -62,6 +62,45 @@
         } = electron;
 
         connectDatabase();
+
+
+        //comando enter para ingresar
+        var input = document.getElementById("userInput");
+        input.addEventListener("keyup", function(event) 
+        {
+            // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            document.getElementById("RegistroBtn").click();
+        }
+        });
+        var input = document.getElementById("passwordInput1");
+        input.addEventListener("keyup", function(event) {
+            // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            document.getElementById("RegistroBtn").click();
+        }
+        });
+        var input = document.getElementById("passwordInput2");
+        input.addEventListener("keyup", function(event) {
+            // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            document.getElementById("RegistroBtn").click();
+        }
+        });
+        
+        
+
+
+
     </script>
 
 </body>
