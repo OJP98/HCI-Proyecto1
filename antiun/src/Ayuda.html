@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACERCA DE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<div class="navbar-fixed">
+    <nav style="position: absolute">
+        <div class="nav-wrapper">
+            <a tabindex=2 href="./index.html" class="brand-logo right" style="padding-right:15px">ANTINUN</a>
+            <ul id="nav-mobile" class="left">
+                <li><a accesskey="1" tabindex=3 href="./index.html">Inicio</a></li>
+                <li><a accesskey="2" tabindex=4 href="./estadisticas.html">Estadísticas</a></li>
+                <li><a accesskey="3" tabindex=5 href="./vecinos.html">Vecinos</a></li>
+                <li><a accesskey="4" tabindex=6 href="./Autores.html">Acerca de</a></li>
+                <li class="active"><a accesskey="5" tabindex=7 href="./Ayuda.html">Ayuda</a></li>
+                <li><a accesskey="6" tabindex=1 onclick="cerrarSesion()" id="cerrarSBtn">Cerrar Sesión</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<body style="background-color: #F3F6FF">
+
+    <!-- CAJA DE CONFIRMACION -->
+    <div id="dialogoverlay"></div>
+    <div id="dialogbox">
+        <div>
+            <div id="dialogboxhead"></div>
+            <div id="dialogboxbody"></div>
+            <div id="dialogboxfoot"></div>
+        </div>
+    </div>
+
+    <div class="parallax2">
+        <div class="container" style="position: absolute; top: 30%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%); text-align:center">
+            
+            <h1 style="color:whitesmoke">Ayuda</h1>
+            <br>
+            <p style="text-align:justify">
+                A continuación encontrarás descripción de todas las 
+                acciones que puedes realizar dentro del sistema de 
+                ANTINUN y los distintos comandos que te pueden facilitarte la vida.
+            </p>
+
+            
+
+        </div>
+    </div>
+
+    <div class="container" style="text-align:center">
+        <!-- APARTADO DE INICIO DE SESION -->
+        <br>
+        <hr>
+        <h4 style="text-align: center">Inicio de sesión</h4>
+        <br>
+        <p>
+            <li style="text-align:justify">
+            Si ya se encuentra registrado en el 
+            sistema puede ingresar su correo y 
+            contraseña y entrar Presionando el botón “INGRESAR”.
+            </li> 
+
+            <br>
+
+            <li style="text-align:justify">
+                    Si no se encuentra registrado en el sistema, 
+                    presione el botón “REGISTRARSE” y llene todos 
+                    los apartados solicitados. 
+            </li>
+
+            <br>
+
+            <li style="text-align:justify">
+                    Si ya se encuentra registrado en el sistema, 
+                    pero ha olvidado su contraseña por algún motivo,
+                     debajo de los botones encontrará la palabra 
+                     “¡Click aquí!” donde podrá recuperar su 
+                     contraseña de forma segura.  
+            </li>
+        </p>
+
+        <h4 style="text-align: left;">Comandos útiles</h4>
+        <table class="centered">
+                <thead>
+                  <tr>
+                      <th>Comando</th>
+                      <th>Descripción</th>                      
+                  </tr>
+                </thead>
+        
+                <tbody>
+                  <tr>
+                    <td>Enter</td>
+                    <td>Botón “INGRESAR”, para inicio de sesión.</td>
+                  </tr>
+                  <tr>
+                    <td>Alt+R</td>
+                    <td>Botón “REGISTRARSE”, para registrarse al sistema.</td>
+                  </tr>
+                  <tr>
+                    <td>Alt+T</td>
+                    <td>Para recuperar contraseña.</td>
+                  </tr>
+                  <tr>
+                        <td>Alt+A</td>
+                        <td>Para retroceder entre pestañas.</td>
+                      </tr>
+                      <tr>
+                            <td>Alt+S</td>
+                            <td>Para salir del sistema.</td>
+                          </tr>
+                </tbody>
+              </table>
+
+              <!-- APARTADO GENERAL -->
+        <br>
+        <hr>
+        <h4 style="text-align: center">General</h4>
+        <br>
+        <p>
+            <li style="text-align:justify">
+                    En la pestaña de “Inicio” encontrará una 
+                    breve descripción del proyecto, así como 
+                    también una imagen que mostrará el nivel del agua,
+                     entre más llena este la esfera, mayor será el nivel 
+                     del agua del área en control. 
+            </li> 
+
+            <br>
+
+            <li style="text-align:justify">
+                    Si desea cambiar de pestaña puede cambiar 
+                    con la tecla TAB y presionando ENTER en la 
+                    pestaña que desee.  
+            </li>
+
+        </p>
+
+        <h4 style="text-align: left;">Comandos útiles</h4>
+        <table class="centered">
+                <thead>
+                  <tr>
+                      <th>Comando</th>
+                      <th>Descripción</th>                      
+                  </tr>
+                </thead>
+        
+                <tbody>
+                  <tr>
+                    <td>Alt+1</td>
+                    <td>Pestaña 1, “Inicio”. </td>
+                  </tr>
+                  <tr>
+                    <td>Alt+2</td>
+                    <td>Pestaña 2, “Estadística”.</td>
+                  </tr>
+                  <tr>
+                    <td>Alt+3</td>
+                    <td>Pestaña 3, "Vecinos".</td>
+                  </tr>
+                  <tr>
+                        <td>Alt+4</td>
+                        <td>Pestaña 4, "Acerca de".</td>
+                      </tr>
+                      <tr>
+                            <td>Alt+5</td>
+                            <td>Pestaña 5, "Ayuda".</td>
+                          </tr>
+                    <tr>
+                        <td>Alt+6</td>
+                        <td>Pestaña 6, "Cerrar Sesión".</td>
+                        </tr>
+                </tbody>
+              </table>
+
+
+              <!-- APARTADO DE Estadisticas -->
+        <br>
+        <hr>
+        <h4 style="text-align: center">Estadísticas</h4>
+        <br>
+        <p>
+            <li style="text-align:justify">
+                    En esta pestaña podrá encontrar el 
+                    registro de los últimos 10 datos registrados 
+                    por los sensores, así como una predicción del 
+                    comportamiento del agua. Una gráfica mostrará 
+                    los datos de forma visual. Podrá generar alertas 
+                    manuales a todos los vecinos registrados en la 
+                    base de datos presionando los botones que se 
+                    encuentran de lado derecho. 
+            </li> 
+
+        </p>
+
+        <h4 style="text-align: left;">Comandos útiles</h4>
+        <table class="centered">
+                <thead>
+                  <tr>
+                      <th>Comando</th>
+                      <th>Descripción</th>                      
+                  </tr>
+                </thead>
+        
+                <tbody>
+                  <tr>
+                    <td>Alt+A</td>
+                    <td>Generar una alerta amarilla.</td>
+                  </tr>
+                  <tr>
+                    <td>Alt+R</td>
+                    <td>Generar una alerta roja.</td>
+                  </tr>
+                </tbody>
+              </table>
+
+        
+        </div>
+
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <a onclick="goBack()" id="regresarBtn" class="waves-effect blue lighten-2 waves-light btn" style="margin:20px">Regresar</a>
+
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
+    <script src="fnsFirebase.js"></script>
+    <script src="generalFns.js"></script>
+
+    <script>
+        const electron = require('electron');
+        const {
+            ipcRenderer
+        } = electron;
+        connectDatabase();
+    </script>
+
+</body>
+
+</html>

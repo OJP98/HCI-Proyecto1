@@ -13,13 +13,14 @@
 <div class="navbar-fixed">
     <nav style="position: absolute">
         <div class="nav-wrapper">
-            <a tabindex=5 href="#" class="brand-logo right" style="padding-right:15px">ANTINUN</a>
+            <a tabindex=6 href="#" class="brand-logo right" style="padding-right:15px">ANTINUN</a>
             <ul id="nav-mobile" class="left">
-                <li class="active"><a tabindex=6 href="./index.html">Inicio</a></li>
-                <li><a tabindex=1 href="./estadisticas.html">Estadísticas</a></li>
-                <li><a tabindex=2 href="./vecinos.html">Vecinos</a></li>
-                <li><a tabindex=3 href="./Autores.html">Acerca de</a></li>
-                <li><a tabindex=4 onclick="cerrarSesion()" id="cerrarSBtn">Cerrar Sesión</a></li>
+                <li class="active"><a accesskey="1" tabindex=7 href="./index.html">Inicio</a></li>
+                <li><a accesskey="2" tabindex=1 href="./estadisticas.html">Estadísticas</a></li>
+                <li><a accesskey="3" tabindex=2 href="./vecinos.html">Vecinos</a></li>
+                <li><a accesskey="4" tabindex=3 href="./Autores.html">Acerca de</a></li>
+                <li><a accesskey="5" tabindex=4 href="./Ayuda.html">Ayuda</a></li>
+                <li><a accesskey="6" tabindex=5 onclick="cerrarSesion()" id="cerrarSBtn">Cerrar Sesión</a></li>
             </ul>
         </div>
     </nav>
@@ -51,11 +52,11 @@
 
     <!-- CAJA DE CONFIRMACION -->
     <div id="dialogoverlay"></div>
-    <div id="dialogbox">
+    <div id="dialogbox" style="background-color:#90caf9;">
         <div>
-            <div id="dialogboxhead"></div>
-            <div id="dialogboxbody"></div>
-            <div id="dialogboxfoot"></div>
+            <div style="background-color:#90caf9; color:white;"  id="dialogboxhead"></div>
+            <div style="background-color:#64b5f6;" id="dialogboxbody"></div>
+            <div style="background-color:#90caf9;" id="dialogboxfoot"></div>
         </div>
     </div>
 

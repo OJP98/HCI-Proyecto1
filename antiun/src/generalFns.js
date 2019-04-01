@@ -33,6 +33,13 @@ function deletePost(id) {
     document.body.removeChild(document.getElementById(id));
 }
 
+function salirSistema() {
+    const remote = require('electron').remote;
+    let w = remote.getCurrentWindow();
+    w.close();
+    
+}
+
 function CustomConfirm() {
     this.render = function (dialog, op) {
         let winW = window.innerWidth;

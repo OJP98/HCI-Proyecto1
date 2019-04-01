@@ -48,13 +48,14 @@
 <div class="navbar-fixed">
     <nav style="position: absolute">
         <div class="nav-wrapper">
-            <a tabindex=3 href="./index.html" class="brand-logo right" style="padding-right:15px">ANTINUN</a>
+            <a tabindex=4 href="./index.html" class="brand-logo right" style="padding-right:15px">ANTINUN</a>
             <ul id="nav-mobile" class="left">
-                <li><a tabindex=4 href="./index.html">Inicio</a></li>
-                <li><a tabindex=5 href="./estadisticas.html">Estadísticas</a></li>
-                <li class="active"><a tabindex=6 href="./vecinos.html">Vecinos</a></li>
-                <li><a tabindex=1 href="./Autores.html">Acerca de</a></li>
-                <li><a tabindex=2 onclick="cerrarSesion()" id="cerrarSBtn">Cerrar Sesión</a></li>
+                <li><a accesskey="1" tabindex=5 href="./index.html">Inicio</a></li>
+                <li><a accesskey="2" tabindex=6 href="./estadisticas.html">Estadísticas</a></li>
+                <li class="active"><a accesskey="3" tabindex=7 href="./vecinos.html">Vecinos</a></li>
+                <li><a accesskey="4" tabindex=1 href="./Autores.html">Acerca de</a></li>
+                <li><a accesskey="5" tabindex=2 href="./Ayuda.html">Ayuda</a></li>
+                <li><a accesskey="6" tabindex=3 onclick="cerrarSesion()" id="cerrarSBtn">Cerrar Sesión</a></li>
             </ul>
         </div>
     </nav>
@@ -81,18 +82,18 @@
 
     <!-- BOTONES PARA LA GESTION DE VECINOS -->
     <div class="container">
-        <a style="text-align:justify" class="btn waves-effect waves-light green" onclick="" id="agregarBtn">
+        <a style="text-align:justify" class="btn waves-effect waves-light green" accesskey="a" onclick="" id="agregarBtn">
             <i class="large material-icons">add</i>
         </a>
-        <a class="btn waves-effect waves-light red" onclick="" id="borrarBtn"
+        <a class="btn waves-effect waves-light red" onclick="" accesskey="b" id="borrarBtn"
             style="margin-left:10px; text-align:justify">
             <i class="large material-icons">delete</i>
         </a>
-        <a class="btn waves-effect waves-light yellow darken-1" onclick="" id="editBtn"
+        <a class="btn waves-effect waves-light yellow darken-1" accesskey="e" onclick="" id="editBtn"
             style="margin-left:10px; text-align:justify">
             <i class="large material-icons">edit</i>
         </a>
-        <a class="btn waves-effect waves-light blue" onclick="" id="editBtn"
+        <a class="btn waves-effect waves-light blue" href="./Ayuda.html" accesskey="h" id="Ayuda"
             style="margin-left:10px; text-align:justify">
             <i class="large material-icons">help_outline</i>
         </a>
@@ -173,7 +174,7 @@
         <br>
         <h5 style="font-family: 'BEARSKIN DEMO', 'Open Sans', 'Arial'">Editar datos de un vecino</h5>
         <p>Ingrese el ID del vecino del cual quiere editar los datos.</p>
-        <form class="col s12" id="editarForm">
+        <form class="col s12"  id="editarForm">
             <div class="row">
                 <div class="input-field col s5">
                     <i class="material-icons prefix">account_circle</i>
@@ -195,7 +196,7 @@
 
         <!-- Boton para guardar y cancelar -->
         <div style="text-align:center">
-            <a style="margin-left:15px" class="btn waves-effect waves-light orange" onclick="editarVecino2()"
+            <a style="margin-left:15px"  class="btn waves-effect waves-light orange" onclick="editarVecino2()"
                 id="editBtn3">
                 <i class="large material-icons left">edit</i>Editar</a>
 
