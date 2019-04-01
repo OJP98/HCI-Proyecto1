@@ -5,7 +5,7 @@ function goBack() {
 }
 
 function CustomAlert() {
-    this.render = function(dialog) {
+    this.render = function (dialog) {
         var winW = window.innerWidth;
         var winH = window.innerHeight;
         var dialogoverlay = document.getElementById('dialogoverlay');
@@ -19,7 +19,7 @@ function CustomAlert() {
         document.getElementById('dialogboxbody').innerHTML = dialog;
         document.getElementById('dialogboxfoot').innerHTML = '<button onclick="Alert.ok()">OK</button>';
     }
-    this.ok = function() {
+    this.ok = function () {
         document.getElementById('dialogbox').style.display = "none";
         document.getElementById('dialogoverlay').style.display = "none";
     }
@@ -34,7 +34,7 @@ function deletePost(id) {
 }
 
 function CustomConfirm() {
-    this.render = function(dialog, op) {
+    this.render = function (dialog, op) {
         let winW = window.innerWidth;
         let winH = window.innerHeight;
 
@@ -59,11 +59,11 @@ function CustomConfirm() {
         dialogboxbody.innerHTML = dialog;
         dialogboxfoot.innerHTML = '<button onclick="Confirm.yes(\'' + op + '\')">Enviar correo</button> <button onclick="Confirm.no()">Cancelar</button>';
     }
-    this.no = function() {
+    this.no = function () {
         document.getElementById('dialogbox').style.display = "none";
         document.getElementById('dialogoverlay').style.display = "none";
     }
-    this.yes = function(op) {
+    this.yes = function (op) {
 
         if (op == "amarillo") {
             toastMensaje('Enviando mensaje de alerta amarilla');
@@ -83,7 +83,7 @@ function toastMensaje(mensaje) {
         html: mensaje,
         classes: 'rounded'
     });
-    setTimeout(function() {
+    setTimeout(function () {
         M.toast({
             html: '¡Mensajes enviados!',
             classes: 'rounded'
@@ -108,3 +108,43 @@ function sumarTiempo(horas, minutos, suma_tiempo) {
 
     return (horas + ":" + minutos);
 };
+
+
+function graficarDatos(arrDatos, arrPred, arrTiempo) {
+
+    let chart1 = document.getElementById('myChart');
+    let ctx = chart1.getContext('2d');
+
+    let chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: arrTiempo,
+            datasets: [{
+                    data: arrDatos,
+                    label: "Datos reales",
+                    borderColor: "#3e95cd",
+                    fill: false
+                },
+                {
+                    data: arrPred,
+                    label: "Datos predecidos",
+                    borderColor: "#8e5ea2",
+                    fill: false
+                }
+            ]
+        },
+
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        suggestedMax: 3,
+                        min: 0,
+                        stepSize: 1
+                    }
+                }]
+            }
+        }
+    });
+
+}

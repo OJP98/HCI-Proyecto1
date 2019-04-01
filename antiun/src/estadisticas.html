@@ -25,7 +25,7 @@
     th {
         border-bottom: 1px solid #ddd;
     }
-    
+
     td {
         border-bottom: 1px solid #ddd;
         border-left: 1px solid #ddd;
@@ -67,70 +67,72 @@
         </div>
     </div>
 
-    <div class="">
+    <div class="row">
 
-        <div class="row">
+        <!-- PRIMERA COLUMNA (TABLA DE DATOS) -->
+        <div class="col s4">
 
-            <!-- PRIMERA COLUMNA (TABLA DE DATOS) -->
+            <h4 style="text-align:center">TABLA DE DATOS</h4>
+            <br>
 
-            <div class="col s4">
+            <!-- TABLA DE DATOS -->
+            <div class="container">
+                <table id="tabla_datos" class="highlight centered" style="border: 1px; display: none">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Nivel</th>
+                            <th>Predicción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-                <h4 style="text-align:center">TABLA DE DATOS</h4>
-                <br>
-
-                <!-- PANTALLA DE CARGA -->
-                <div id="loader" class="container" style="text-align:center; display: block">
-                    <br>
-                    <div class="preloader-wrapper active">
-                        <div class="spinner-layer spinner-green-only">
-                            <div class="circle-clipper left">
-                                <div class="circle"></div>
-                            </div>
-                            <div class="gap-patch">
-                                <div class="circle"></div>
-                            </div>
-                            <div class="circle-clipper right">
-                                <div class="circle"></div>
-                            </div>
+        <!-- GRAFICA DE DATOS -->
+        <div class="col s4">
+            <h4 style="text-align:center"> GRÁFICO DEL COMPORTAMIENTO DEL AGUA </h4>
+            <br><br>
+            <!-- PANTALLA DE CARGA -->
+            <div id="loader" class="container" style="text-align:center; display: block">
+                <br><br>
+                <div class="preloader-wrapper active">
+                    <div class="spinner-layer spinner-green-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
                         </div>
                     </div>
-                    <br>
-                    <p>Extrayendo últimos datos..</p>
                 </div>
-
-                <!-- TABLA DE DATOS -->
-                <div class="container">
-                    <table id="tabla_datos" class="highlight centered" style="border: 1px; display: none">
-                        <thead>
-                            <tr>
-                                <th>Fecha</th>
-                                <th>Nivel</th>
-                                <th>Predicción</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableBody">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="col s4">
-                <h4 style="text-align:center"> GRÁFICO DEL COMPORTAMIENTO DEL AGUA </h4>
-                <canvas id="myChart" width="400" height="400"></canvas>
-            </div>
-
-            <!-- TERCERA COLUMNA (BOTONES) -->
-            <div class="col s4" style="text-align: center">
-                <h4> Enviar un mensaje de alerta </h4>
                 <br>
-                <a class="waves-effect waves-light btn yellow darken-1" onclick="Confirm.render('¿Quieres enviar un correo de alerta amarilla a todos los vecinos?','amarillo')">
-                    <i class="material-icons right">warning</i> Alerta Amarilla</a>
-                <br><br><br>
-                <a class="waves-effect waves-light btn red" onclick="Confirm.render('¿Quieres enviar un correo de alerta roja a todos los vecinos?','rojo')">
-                    <i class=" material-icons right ">warning</i> Alerta Roja</a>
-                <p style="text-align: justify; margin: 60px;">NOTA: El mensaje será enviado a todos los vecinos que se encuentran en el área seleccionada. La lista de dichos vecinos puede ser visualizada en la pestaña de 'VECINOS'.</p>
+                <p>Extrayendo últimos datos..</p>
             </div>
+            <canvas id="myChart" width="400" height="400"></canvas>
+        </div>
 
+        <!-- TERCERA COLUMNA (BOTONES) -->
+        <div class="col s4" style="text-align: center">
+            <h4> Enviar un mensaje de alerta </h4>
+            <br>
+            <a class="waves-effect waves-light btn yellow darken-1"
+                onclick="Confirm.render('¿Quieres enviar un correo de alerta amarilla a todos los vecinos?','amarillo')">
+                <i class="material-icons right">warning</i> Alerta Amarilla</a>
+            <br><br><br>
+            <a class="waves-effect waves-light btn red"
+                onclick="Confirm.render('¿Quieres enviar un correo de alerta roja a todos los vecinos?','rojo')">
+                <i class=" material-icons right ">warning</i> Alerta Roja</a>
+            <p style="text-align: justify; margin: 60px;">NOTA: El mensaje será enviado a todos los vecinos que
+                se
+                encuentran en el área seleccionada. La lista de dichos vecinos puede ser visualizada en la
+                pestaña
+                de 'VECINOS'.</p>
         </div>
 
     </div>
@@ -162,53 +164,12 @@
         } = electron;
 
         Chart.platform.disableCSSInjection = true;
+
         connectDatabase();
-        var Datos=actualizar_datos_agua();
-        
-        var a=["19:17", "19:18", "19:19", "19:20", "19:21", "19:22", '19:23'];
-        
-        
-        console.log(Datos);
 
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var chart = new Chart(ctx, {
-
-
-                            type: 'line',
-                data: {
-                    labels: a,
-                    datasets: [{ 
-                        data: [0,0,1,0,1,0,1,0,1,1],
-                        label: "Datos reales",
-                        borderColor: "#3e95cd",
-                        fill: false
-                    }, { 
-                        data: [1,1,1,1,0,1,0,1,0,1],
-                        label: "Datos Predecidos",
-                        borderColor: "#8e5ea2",
-                        fill: false
-                    }
-                    ]
-                },
-                options: {
-                    scales: {
-                    yAxes: [{
-                        ticks: {
-                            max: 5,
-                            min: 0,
-                            stepSize: 1
-                        }
-                    }]
-                }
-
-
-
-                }
-
-            
-        });
-
-        
+        actualizar_datos_agua();
+        // var Datos = actualizar_datos_agua();
+        // graficarDatos(Datos[0], Datos[1], Datos[2]);
     </script>
 </body>
 

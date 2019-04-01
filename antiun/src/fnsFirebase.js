@@ -28,11 +28,11 @@ function iniciarSesion() {
     var userData = userInput.value;
     var passwordData = passwordInput.value;
     firebase.auth().languageCode = 'es';
-    firebase.auth().signInWithEmailAndPassword(userData, passwordData).then(function() {
+    firebase.auth().signInWithEmailAndPassword(userData, passwordData).then(function () {
 
         document.location.href = 'index.html';
 
-    }).catch(function(error) {
+    }).catch(function (error) {
         var errorMessage = error.message;
         var errorCode = error.code;
         if (errorCode == "auth/invalid-email") {
@@ -61,13 +61,13 @@ function crearUsuario() {
     var passwordData2 = passwordInput2.value;
 
     if (passwordData1 == passwordData2) {
-        firebase.auth().createUserWithEmailAndPassword(userData, passwordData1).then(function() {
+        firebase.auth().createUserWithEmailAndPassword(userData, passwordData1).then(function () {
 
             window.alert("El usuario ha sido creado");
             document.location.href = 'login.html';
 
 
-        }).catch(function(error) {
+        }).catch(function (error) {
             // Handle Errors here.
             var errorMessage = error.message;
             var errorCode = error.code;
@@ -88,7 +88,7 @@ function crearUsuario() {
 
 async function existenDatos(variable) {
     const ref = firebase.database().ref(variable);
-    ref.once("value").then(function(snapshot) {
+    ref.once("value").then(function (snapshot) {
         return snapshot.exists();
     });
 };
@@ -108,8 +108,8 @@ async function obtenerVecinos() {
 
         var query = firebase.database().ref("Vecinos");
 
-        query.once("value").then(function(snapshot) {
-            snapshot.forEach(function(childSnapshot) {
+        query.once("value").then(function (snapshot) {
+            snapshot.forEach(function (childSnapshot) {
 
                 var key = childSnapshot.key;
                 var childData = childSnapshot.val();
@@ -118,7 +118,9 @@ async function obtenerVecinos() {
                 var nombre = document.createTextNode(childData["nombre"]);
                 var area = document.createTextNode(childData["area"]);
                 var correo = document.createTextNode(childData["correo"]);
-                console.log(correo);
+
+                if (key == "x")
+                    return true;
 
                 let newRow = tbody.insertRow(-1);
 
@@ -132,7 +134,7 @@ async function obtenerVecinos() {
                 celdaArea.appendChild(area);
                 celdaCorreo.appendChild(correo);
             });
-        }).then(function() {
+        }).then(function () {
             loader.style.display = "none";
             tabla_vecinos.style.display = "inline-table";
         });
@@ -141,6 +143,9 @@ async function obtenerVecinos() {
         noData.style.display = "inline";
     }
 };
+
+
+
 async function agregarVecino() {
     let form = document.getElementById("agregarForm")
 
@@ -151,50 +156,47 @@ async function agregarVecino() {
     let vecino_nombre = nombre_input.value;
 
     var query = firebase.database().ref("Vecinos");
-        var b=0;
+    var b = 0;
 
-        query.once("value").then(function(snapshot) {
-            var a=JSON.stringify(snapshot.numChildren());
-            b=parseInt(a);
-            if((b-1)>0)
-            {
-                 b=b-1;
-            }
-            else
-            {
-                b=0;
-            }
-            //aqi va codigo
-            b=b+1;
-            
+    query.once("value").then(function (snapshot) {
+        var a = JSON.stringify(snapshot.numChildren());
+        b = parseInt(a);
+        if ((b - 1) > 0) {
+            b = b - 1;
+        } else {
+            b = 0;
+        }
+        //aqi va codigo
+        b = b + 1;
 
-            if (!correo_input.checkValidity() || !nombre_input.checkValidity()) {
-                window.alert("Por favor, verifique que todos los campos sean válidos");
-            } else {
-                $("#tabla_vecinos tbody tr").remove();
-        
-                firebase.database().ref('Vecinos/x').set({
-                    Contador: b                   
-                });
 
-                firebase.database().ref('Vecinos/' + b).set({
-                    nombre: vecino_nombre,
-                    area: "Antigua Guatemala",
-                    correo: vecino_correo
-                });
-        
-                document.getElementById("tabla_vecinos").style.display = "none";
-                document.getElementById("loader").style.display = "block";
-                obtenerVecinos().then(function() {
-                    window.alert("Vecino agregado con éxito!");
-        
-                    form.reset();
-        
-                });
-            }
+        if (!correo_input.checkValidity() || !nombre_input.checkValidity()) {
+            window.alert("Por favor, verifique que todos los campos sean válidos");
+        } else {
+            $("#tabla_vecinos tbody tr").remove();
 
-           
-        })    
+            firebase.database().ref('Vecinos/x').set({
+                Contador: b
+            });
+
+            firebase.database().ref('Vecinos/' + b).set({
+                nombre: vecino_nombre,
+                area: "Antigua Guatemala",
+                correo: vecino_correo
+            });
+
+            document.getElementById("tabla_vecinos").style.display = "none";
+            document.getElementById("loader").style.display = "block";
+            obtenerVecinos().then(function () {
+                window.alert("Vecino agregado con éxito!");
+
+                form.reset();
+
+            });
+        }
+
+
+    })
 
 };
 
@@ -213,18 +215,18 @@ function eliminarVecino() {
         vecino_id_input.className = "validate invalid"
     } else {
 
-        firebase.database().ref('Vecinos/' + vecino_id).remove().then(function() {
+        firebase.database().ref('Vecinos/' + vecino_id).remove().then(function () {
             window.alert("Vecino eliminado con éxito!");
             document.getElementById("tabla_vecinos").style.display = "none";
             document.getElementById("loader").style.display = "block";
 
             $("#tabla_vecinos tbody tr").remove();
 
-            obtenerVecinos().then(function() {
+            obtenerVecinos().then(function () {
                 form.reset();
             });
 
-        }).catch(function(error) {
+        }).catch(function (error) {
             vecino_id_input.className = "validate invalid";
         });
     }
@@ -242,8 +244,8 @@ async function eliminarVecino2() {
 
         var query = firebase.database().ref("Vecinos");
 
-        query.once("value").then(function(snapshot) {
-            snapshot.forEach(function(childSnapshot) {
+        query.once("value").then(function (snapshot) {
+            snapshot.forEach(function (childSnapshot) {
 
                 var key = childSnapshot.key;
                 var childData = childSnapshot.val();
@@ -255,17 +257,17 @@ async function eliminarVecino2() {
 
                 if (correo === correo_val) {
 
-                    firebase.database().ref('Vecinos/' + key).remove().then(function() {
+                    firebase.database().ref('Vecinos/' + key).remove().then(function () {
                         window.alert("Vecino eliminado con éxito!");
                         document.getElementById("tabla_vecinos").style.display = "none";
                         document.getElementById("loader").style.display = "block";
                         $("#tabla_vecinos tbody tr").remove();
 
-                        obtenerVecinos().then(function() {
+                        obtenerVecinos().then(function () {
                             form.reset();
                         });
 
-                    }).catch(function(error) {
+                    }).catch(function (error) {
 
                         vecino_id_input.className = "validate invalid";
                     });
@@ -281,8 +283,8 @@ async function editarVecino2() {
     let hayDatos = true;
     if (hayDatos) {
         var query = firebase.database().ref("Vecinos");
-        query.once("value").then(function(snapshot) {
-            snapshot.forEach(function(childSnapshot) {
+        query.once("value").then(function (snapshot) {
+            snapshot.forEach(function (childSnapshot) {
                 var key = childSnapshot.key;
                 var childData = childSnapshot.val();
                 var id = document.createTextNode(key);
@@ -298,15 +300,15 @@ async function editarVecino2() {
                         nombre: vecino_name,
                         area: "Antigua Guatemala",
                         correo: vecino_mail
-                        });
-                    
+                    });
+
                     $("#tabla_vecinos tbody tr").remove();
-                    obtenerVecinos().then(function() {
+                    obtenerVecinos().then(function () {
                         window.alert("Vecino editado con éxito!");
                         form.reset();
-                
+
                     });
-                }else{
+                } else {
                     window.alert("El correo no existe, por favor verificar");
                 }
             });
@@ -339,7 +341,7 @@ function editarVecino() {
         });
     }
     $("#tabla_vecinos tbody tr").remove();
-    obtenerVecinos().then(function() {
+    obtenerVecinos().then(function () {
         window.alert("Vecino editado con éxito!");
 
         form.reset();
@@ -358,10 +360,10 @@ function recuperar() {
     var emailAddress = document.getElementById("userInput");
     var email = emailAddress.value;
     firebase.auth().languageCode = 'es';
-    firebase.auth().sendPasswordResetEmail(email).then(function() {
+    firebase.auth().sendPasswordResetEmail(email).then(function () {
         window.alert("El correo ha sido enviado");
         document.location.href = 'login.html';
-    }).catch(function(error) {
+    }).catch(function (error) {
         window.alert("Ingrese un correo valido");
     });
 };
@@ -379,7 +381,7 @@ function cargarMenuPrincipal() {
     let contenido = document.getElementById("contenidoGeneral");
     let loader = document.getElementById("loader");
 
-    firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             let user = (firebase.auth().currentUser)["email"];
             nombreUsuario.innerHTML = user.substring(0, user.indexOf('@'));
@@ -404,14 +406,14 @@ function actualizar_datos_agua() {
     let ultima_hora = "0";
     let hora;
     let minutos;
-    var datos=[];
-    var datosPredecidos=[];
-    var horasLista=[];
+    var datos = [];
+    var datosPredecidos = [];
+    var horasLista = [];
 
 
-    query.once("value").then(function(snapshot) {
+    query.once("value").then(function (snapshot) {
 
-        snapshot.forEach(function(childSnapshot) {
+        snapshot.forEach(function (childSnapshot) {
 
             // Inicialización de variables
             let key = childSnapshot.key;
@@ -435,8 +437,8 @@ function actualizar_datos_agua() {
                 nivelAgua = document.createTextNode("---");
             else
                 nivelAgua = document.createTextNode(childData["nivel_agua"]);
-            
-                datos.push(parseInt( nivelAgua.data));
+
+            datos.push(parseInt(nivelAgua.data));
 
 
             // Si no hay prediccion, lo reemplaza por 3 guiones
@@ -444,8 +446,8 @@ function actualizar_datos_agua() {
                 nivelAguaPred = document.createTextNode("---");
             else
                 nivelAguaPred = document.createTextNode(childData["nivel_agua_p"]);
-            
-                datosPredecidos.push(parseInt( nivelAguaPred.data));
+
+            datosPredecidos.push(parseInt(nivelAguaPred.data));
 
 
             // Si el dato es predecido...
@@ -489,29 +491,21 @@ function actualizar_datos_agua() {
             celdaPrediccion.appendChild(nivelAguaPred);
         });
 
-    }).then(function() {
+    }).then(function () {
         // Se quita el loader y se muestra la tabla
         loader.style.display = "none";
         tabla_datos.style.display = "inline-table";
 
+        graficarDatos(datos, datosPredecidos, horasLista);
 
-        
     });
-
-    
-
-    return [datos,datosPredecidos,horasLista];
-        
-
-    
-
 };
 
 
 
 function CerrarSesionConfirm() {
 
-    this.render = function(dialog, op) {
+    this.render = function (dialog, op) {
         let winW = window.innerWidth;
         let winH = window.innerHeight;
 
@@ -536,18 +530,18 @@ function CerrarSesionConfirm() {
         dialogboxbody.innerHTML = dialog;
         dialogboxfoot.innerHTML = '<button onclick="CerrarSesionConfirm.yes(\'' + op + '\')">Cerrar sesión</button> <button onclick="CerrarSesionConfirm.no()">Cancelar</button>';
     }
-    this.no = function() {
+    this.no = function () {
         document.getElementById('dialogbox').style.display = "none";
         document.getElementById('dialogoverlay').style.display = "none";
     }
-    this.yes = function() {
+    this.yes = function () {
 
         firebase.auth().languageCode = 'es';
-        firebase.auth().signOut().then(function() {
+        firebase.auth().signOut().then(function () {
 
             // Sign-out successful.
             document.location.href = 'login.html';
-        }).catch(function(error) {
+        }).catch(function (error) {
             // An error happened.
             window.alert("No se ha podido cerrar sesión");
         });
@@ -564,8 +558,8 @@ function GetNivelAguaActual() {
     let urlImagen = "";
     let query = firebase.database().ref("Datos");
 
-    query.once("value").then(function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
+    query.once("value").then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
 
             let key = childSnapshot.key;
             let childData = childSnapshot.val();
