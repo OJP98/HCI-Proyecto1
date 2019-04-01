@@ -37,7 +37,7 @@ function salirSistema() {
     const remote = require('electron').remote;
     let w = remote.getCurrentWindow();
     w.close();
-    
+
 }
 
 function CustomConfirm() {
@@ -71,6 +71,8 @@ function CustomConfirm() {
         document.getElementById('dialogoverlay').style.display = "none";
     }
     this.yes = function (op) {
+
+        enviarCorreo(op);
 
         if (op == "amarillo") {
             toastMensaje('Enviando mensaje de alerta amarilla');
@@ -129,13 +131,13 @@ function graficarDatos(arrDatos, arrPred, arrTiempo) {
             labels: arrTiempo,
             datasets: [{
                     data: arrDatos,
-                    label: "Datos reales",
+                    label: "Dato real",
                     borderColor: "#3e95cd",
                     fill: false
                 },
                 {
                     data: arrPred,
-                    label: "Datos predecidos",
+                    label: "Dato predecido",
                     borderColor: "#8e5ea2",
                     fill: false
                 }
@@ -154,8 +156,8 @@ function graficarDatos(arrDatos, arrPred, arrTiempo) {
             }
         }
     });
-
 }
+
 
 var pagActual = 1;
 
@@ -181,7 +183,71 @@ function changePage(changePag, specificPag) {
             }
 
             obtenerVecinos(pagActual)
-
         }
     }
+}
+
+
+
+"use strict";
+const nodemailer = require("nodemailer");
+
+async function enviarCorreo(tipoAlerta) {
+
+    let mensaje = "";
+    let subject = "";
+    let listaVecinos = [];
+
+    // Se obtiene el query
+    let query = firebase.database().ref("Vecinos");
+    // Se recorre el query
+    query.once("value").then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+            // Se obtiene llave / valor
+            var key = childSnapshot.key;
+            var childData = childSnapshot.val();
+
+            var correo = childData["correo"];
+            listaVecinos.push(correo);
+
+            // Si llega a su fin, se termina la función
+            if (key == "x")
+                return true;
+        });
+    });
+
+    if (tipoAlerta == 'amarillo') {
+        mensaje = "Esta alerta fue enviada manualmente.\n\nVECINOS DE ANTIGUA GUATEMALA:\nPor favor, estar atentos al nivel del agua puesto que se denotó que el mismo está incrementando rápidamente.";
+        subject = "ALERTA AMARILLA";
+
+    } else if (tipoAlerta == 'rojo') {
+        mensaje = "Esta alerta fue enviada manualmente.\n\nVECINOS DE ANTIGUA GUATEMALA:\nSe identificó que el nivel del agua es demasiado peligroso, por favor, evacuar el área inmediatamente.";
+        subject = "ALERTA ROJA";
+    }
+
+
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        auth: {
+            user: "proyectouvghci@gmail.com",
+            pass: "perroUVG"
+        },
+        tls: {
+            rejectUnathorized: false
+        }
+    });
+
+    // setup email data with unicode symbols
+    let mailOptions = {
+        from: '"PREVENCIÓN DE INUNDACIONES" <proyectouvghci@gmail.com>',
+        to: listaVecinos,
+        subject: subject,
+        text: mensaje,
+    };
+
+    // send mail with defined transport object
+    let info = await transporter.sendMail(mailOptions);
 }

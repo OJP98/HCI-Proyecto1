@@ -20,7 +20,8 @@
             <div class="input-field">
                 <input id="userInput" type="email" tabindex=1 class="validate" required autofocus>
                 <label for="userInput">Correo electrónico</label>
-                <span class="helper-text" data-error="Por favor ingrese un correo válido" data-success="Correo válido">Ingrese su correo electrónico</span>
+                <span class="helper-text" data-error="Por favor ingrese un correo válido"
+                    data-success="Correo válido">Ingrese su correo electrónico</span>
             </div class="input-field">
 
             <br>
@@ -34,11 +35,15 @@
             <br>
 
             <div style="text-align:center">
-                <a onclick="iniciarSesion()" id="ingresarBtn" class="waves-effect waves-light blue darken-4 btn" style="margin:20px">Ingresar</a>
-                <a onclick="document.location.href = 'register.html';" id="RegistroBtn" accesskey="r" class="waves-effect waves-light blue darken-4 btn" style="margin:20px">Registrarse</a>
-                <a onclick="salirSistema()" id="Salir" accesskey="s" class="waves-effect waves-light  red darken-4 btn" style="margin:20px">Salir</a></ br>
+                <a onclick="iniciarSesion()" id="ingresarBtn" class="waves-effect waves-light blue darken-4 btn"
+                    style="margin:20px">Ingresar</a>
+                <a onclick="document.location.href = 'register.html';" id="RegistroBtn" accesskey="r"
+                    class="waves-effect waves-light blue darken-4 btn" style="margin:20px">Registrarse</a></br>
                 <p>¿Olvidaste tu contraseña?
-                    <a href="" onclick="document.location.href = 'restorePass.html';" id="RecuperarBtn" accesskey="t"> ¡Click aquí!</a>
+                    <a href="" onclick="document.location.href = 'restorePass.html';" id="RecuperarBtn" accesskey="t">
+                        ¡Click aquí!</a></br></br></br>
+                    <a onclick="salirSistema()" id="Salir" accesskey="s"
+                        class="waves-effect waves-light  red darken-4 btn" style="margin:20px">Salir</a>
                 </p>
             </div>
         </div>
@@ -64,7 +69,7 @@
 
         //comando enter para iniciar sesion
         var input = document.getElementById("userInput");
-        input.addEventListener("keyup", function(event) {
+        input.addEventListener("keyup", function (event) {
             // Number 13 is the "Enter" key on the keyboard
             if (event.keyCode === 13) {
                 // Cancel the default action, if needed
@@ -75,7 +80,7 @@
         });
 
         var input = document.getElementById("passwordInput");
-        input.addEventListener("keyup", function(event) {
+        input.addEventListener("keyup", function (event) {
             // Number 13 is the "Enter" key on the keyboard
             if (event.keyCode === 13) {
                 // Cancel the default action, if needed
