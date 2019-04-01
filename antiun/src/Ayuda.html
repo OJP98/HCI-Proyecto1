@@ -29,12 +29,12 @@
 
   <!-- CAJA DE CONFIRMACION -->
   <div id="dialogoverlay"></div>
-  <div id="dialogbox">
-    <div>
-      <div id="dialogboxhead"></div>
-      <div id="dialogboxbody"></div>
-      <div id="dialogboxfoot"></div>
-    </div>
+  <div id="dialogbox" style="background-color:#90caf9;">
+      <div>
+          <div style="background-color:#90caf9; color:white;"  id="dialogboxhead"></div>
+          <div style="background-color:#64b5f6;" id="dialogboxbody"></div>
+          <div style="background-color:#90caf9;" id="dialogboxfoot"></div>
+      </div>
   </div>
 
   <div class="parallax2">
@@ -225,9 +225,81 @@
     </table>
 
 
+    <!-- APARTADO DE Vecinos -->
+    <br>
+    <hr>
+    <h4 style="text-align: center">Vecinos</h4>
+    <br>
+    <p>
+      <li style="text-align:justify">
+        En la pestaña vecinos podrá visualizar 
+        todos los vecinos registrados para un 
+        área en específico. También podrá 
+        agregar nuevos vecinos, borrar y editar. 
+      </li>
+
+      <li style="text-align:justify">
+        Si desea agregar un nuevo usuario, presione el botón verde. 
+      </li>
+
+      <li style="text-align:justify">
+        Si se desea eliminar un vecino, presione el botón rojo.  
+      </li>
+
+      <li style="text-align:justify">
+        Si se desea modificar un vecino, presione el botón amarillo.  
+      </li>
+
+    </p>
+
+    <br>
+    <h5 style="text-align: left;">Comandos útiles</h5>
+    <table class="centered">
+      <thead>
+        <tr>
+          <th>Comando</th>
+          <th>Descripción</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>Alt+A</td>
+          <td>Agregar un nuevo vecino. </td>
+        </tr>
+        <tr>
+          <td>Alt+B</td>
+          <td>Borrar vecino.</td>
+        </tr>
+        <tr>
+          <td>Alt+E</td>
+          <td>Editar vecino.</td>
+        </tr>
+        <tr>
+          <td>Alt+H</td>
+          <td>Ayuda.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- APARTADO DE Acerca de -->
+    <br>
+    <hr>
+    <h4 style="text-align: center">Acerca de</h4>
+    <br>
+    <p>
+      <li style="text-align:justify">
+        En esta pestaña se encuentra información sobre el proyecto, 
+        así como también sobre los creadores de este sistema. 
+      </li>
+
+    </p>
+
+    <br>
+ 
   </div>
 
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <br><br>
   <a onclick="goBack()" id="regresarBtn" class="waves-effect blue lighten-2 waves-light btn"
     style="margin:20px">Regresar</a>
 
