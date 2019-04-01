@@ -404,6 +404,9 @@ function actualizar_datos_agua() {
     let ultima_hora = "0";
     let hora;
     let minutos;
+    var datos=[];
+    var datosPredecidos=[];
+    var horasLista=[];
 
 
     query.once("value").then(function(snapshot) {
@@ -432,6 +435,8 @@ function actualizar_datos_agua() {
                 nivelAgua = document.createTextNode("---");
             else
                 nivelAgua = document.createTextNode(childData["nivel_agua"]);
+            
+                datos.push(parseInt( nivelAgua.data));
 
 
             // Si no hay prediccion, lo reemplaza por 3 guiones
@@ -439,6 +444,8 @@ function actualizar_datos_agua() {
                 nivelAguaPred = document.createTextNode("---");
             else
                 nivelAguaPred = document.createTextNode(childData["nivel_agua_p"]);
+            
+                datosPredecidos.push(parseInt( nivelAguaPred.data));
 
 
             // Si el dato es predecido...
@@ -466,6 +473,7 @@ function actualizar_datos_agua() {
                 hora_minuto = document.createTextNode(childData["hora"] + ":" + childData["minuto"]);
                 items.push(hora_minuto);
             }
+            horasLista.push(hora_minuto.data);
 
             // Se inserta una nueva  fila
             let newRow = tbody.insertRow(-1);
@@ -485,7 +493,18 @@ function actualizar_datos_agua() {
         // Se quita el loader y se muestra la tabla
         loader.style.display = "none";
         tabla_datos.style.display = "inline-table";
+
+
+        
     });
+
+    
+
+    return [datos,datosPredecidos,horasLista];
+        
+
+    
+
 };
 
 

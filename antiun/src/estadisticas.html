@@ -162,39 +162,53 @@
         } = electron;
 
         Chart.platform.disableCSSInjection = true;
+        connectDatabase();
+        var Datos=actualizar_datos_agua();
+        
+        var a=["19:17", "19:18", "19:19", "19:20", "19:21", "19:22", '19:23'];
+        
+        
+        console.log(Datos);
 
         var ctx = document.getElementById('myChart').getContext('2d');
         var chart = new Chart(ctx, {
 
-            // The type of chart we want to create
-            type: 'line',
 
-            // The data for our dataset
-            data: {
-                labels: ['19:17', '19:18', '19:19', '19:20', '19:21', '19:22', '19:23'],
-                datasets: [{
-                    label: 'Nivel del agua',
-                    borderColor: 'rgb(0, 99, 132)',
-                    data: [0, 0, 0, 1, 1, 1, 2]
-                }]
-            },
-
-            // Configuration options go here
-            options: {
-                scales: {
+                            type: 'line',
+                data: {
+                    labels: a,
+                    datasets: [{ 
+                        data: [0,0,1,0,1,0,1,0,1,1],
+                        label: "Datos reales",
+                        borderColor: "#3e95cd",
+                        fill: false
+                    }, { 
+                        data: [1,1,1,1,0,1,0,1,0,1],
+                        label: "Datos Predecidos",
+                        borderColor: "#8e5ea2",
+                        fill: false
+                    }
+                    ]
+                },
+                options: {
+                    scales: {
                     yAxes: [{
                         ticks: {
                             max: 5,
                             min: 0,
-                            stepSize: 0.5
+                            stepSize: 1
                         }
                     }]
                 }
-            }
+
+
+
+                }
+
+            
         });
 
-        connectDatabase();
-        actualizar_datos_agua();
+        
     </script>
 </body>
 
