@@ -94,6 +94,7 @@ async function existenDatos(variable) {
 };
 
 
+
 async function obtenerVecinos() {
 
     var tabla_vecinos = document.getElementById("tabla_vecinos");
@@ -140,10 +141,7 @@ async function obtenerVecinos() {
         noData.style.display = "inline";
     }
 };
-
-
-function agregarVecino() {
-
+async function agregarVecino() {
     let form = document.getElementById("agregarForm")
 
     let correo_input = document.getElementById("mail_icon");
@@ -152,31 +150,56 @@ function agregarVecino() {
     let nombre_input = document.getElementById("name_icon");
     let vecino_nombre = nombre_input.value;
 
-    let id_input = document.getElementById("id_icon");
-    let vecino_id = id_input.value;
+    var query = firebase.database().ref("Vecinos");
+        var b=0;
 
-    if (!correo_input.checkValidity() || !nombre_input.checkValidity() || !id_input.checkValidity()) {
-        window.alert("Por favor, verifique que todos los campos sean válidos");
-    } else {
-        $("#tabla_vecinos tbody tr").remove();
+        query.once("value").then(function(snapshot) {
+            var a=JSON.stringify(snapshot.numChildren());
+            b=parseInt(a);
+            if((b-1)>0)
+            {
+                 b=b-1;
+            }
+            else
+            {
+                b=0;
+            }
+            //aqi va codigo
+            b=b+1;
+            
 
-        firebase.database().ref('Vecinos/' + vecino_id).set({
-            nombre: vecino_nombre,
-            area: "Antigua Guatemala",
-            correo: vecino_correo
-        });
+            if (!correo_input.checkValidity() || !nombre_input.checkValidity()) {
+                window.alert("Por favor, verifique que todos los campos sean válidos");
+            } else {
+                $("#tabla_vecinos tbody tr").remove();
+        
+                firebase.database().ref('Vecinos/x').set({
+                    Contador: b                   
+                });
 
-        document.getElementById("tabla_vecinos").style.display = "none";
-        document.getElementById("loader").style.display = "block";
-        obtenerVecinos().then(function() {
-            window.alert("Vecino agregado con éxito!");
+                firebase.database().ref('Vecinos/' + b).set({
+                    nombre: vecino_nombre,
+                    area: "Antigua Guatemala",
+                    correo: vecino_correo
+                });
+        
+                document.getElementById("tabla_vecinos").style.display = "none";
+                document.getElementById("loader").style.display = "block";
+                obtenerVecinos().then(function() {
+                    window.alert("Vecino agregado con éxito!");
+        
+                    form.reset();
+        
+                });
+            }
 
-            form.reset();
-
-        });
-    }
+           
+        })    
 
 };
+
+
+
 
 
 function eliminarVecino() {
