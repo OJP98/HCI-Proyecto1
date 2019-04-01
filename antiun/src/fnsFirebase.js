@@ -94,56 +94,73 @@ async function existenDatos(variable) {
 };
 
 
+function obtenerVecinos(pagina) {
 
-async function obtenerVecinos() {
+    // Inicialización de variables
+    var query;
+    let contador = 0;
+    let skip = (5 * pagina) - 5;
+    let last = 5 * pagina;
 
+    // Getters de la página web
     var tabla_vecinos = document.getElementById("tabla_vecinos");
     var tbody = document.getElementById("tableBody");
     var loader = document.getElementById("loader");
-    var noData = document.getElementById("no_hay_vecinos");
 
-    let hayDatos = true;
+    // Se le hace un reset a la tabla y se hace visible el loader
+    $("#tabla_vecinos tbody tr").remove();
+    loader.style.display = "block";
 
-    if (hayDatos) {
+    // Se obtiene el query
+    query = firebase.database().ref("Vecinos");
 
-        var query = firebase.database().ref("Vecinos");
+    // Se recorre el query
+    query.once("value").then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
 
-        query.once("value").then(function (snapshot) {
-            snapshot.forEach(function (childSnapshot) {
+            contador += 1;
 
+            // Si el rango está en la cantidad de dato consultados...
+            if (contador > skip && contador <= last) {
+
+                // Se obtiene llave / valor
                 var key = childSnapshot.key;
                 var childData = childSnapshot.val();
 
+                // Se crea el nodo de cada variable
                 var id = document.createTextNode(key);
                 var nombre = document.createTextNode(childData["nombre"]);
                 var area = document.createTextNode(childData["area"]);
                 var correo = document.createTextNode(childData["correo"]);
 
+                // Si llega a su fin, se termina la función
                 if (key == "x")
                     return true;
 
+                // Se inserta una nueva fila
                 let newRow = tbody.insertRow(-1);
 
+                // Se insertan celdas a la fila
                 let celdaId = newRow.insertCell(0);
                 let celdaNombre = newRow.insertCell(1);
                 let celdaArea = newRow.insertCell(2);
                 let celdaCorreo = newRow.insertCell(3);
 
+                // Se insertan datos a la celda
                 celdaId.appendChild(id);
                 celdaNombre.appendChild(nombre);
                 celdaArea.appendChild(area);
                 celdaCorreo.appendChild(correo);
-            });
-        }).then(function () {
-            loader.style.display = "none";
-            tabla_vecinos.style.display = "inline-table";
+            }
         });
 
-    } else {
-        noData.style.display = "inline";
-    }
-};
+    }).then(function () {
 
+        // Luego, se quita el loader y se muestra la tabla
+        loader.style.display = "none";
+        tabla_vecinos.style.display = "inline-table";
+    });
+};
 
 
 async function agregarVecino() {
@@ -194,14 +211,8 @@ async function agregarVecino() {
 
             });
         }
-
-
     })
-
 };
-
-
-
 
 
 function eliminarVecino() {
@@ -276,6 +287,8 @@ async function eliminarVecino2() {
         })
     }
 };
+
+
 async function editarVecino2() {
     let form = document.getElementById("editarForm");
     var correo_input = document.getElementById("mail_icon3");
@@ -316,6 +329,7 @@ async function editarVecino2() {
     }
 };
 
+
 function editarVecino() {
 
     let form = document.getElementById("editarForm");
@@ -345,7 +359,6 @@ function editarVecino() {
         window.alert("Vecino editado con éxito!");
 
         form.reset();
-
     });
 };
 

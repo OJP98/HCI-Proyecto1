@@ -26,18 +26,18 @@
         border-bottom: 1px solid #ddd;
         text-align: center;
     }
-    
+
     td {
         border-bottom: 1px solid #ddd;
         border-left: 1px solid #ddd;
         border-right: 1px solid #ddd;
         padding-left: 12px;
     }
-    
+
     tr:nth-child(even) {
         background-color: rgba(0, 0, 0, 0.021);
     }
-    
+
     .dropdown-content {
         width: max-content !important;
         height: auto !important;
@@ -51,7 +51,7 @@
             <a tabindex=3 href="./index.html" class="brand-logo right" style="padding-right:15px">ANTINUN</a>
             <ul id="nav-mobile" class="left">
                 <li><a tabindex=4 href="./index.html">Inicio</a></li>
-                <li><a tabindex=5  href="./estadisticas.html">Estadísticas</a></li>
+                <li><a tabindex=5 href="./estadisticas.html">Estadísticas</a></li>
                 <li class="active"><a tabindex=6 href="./vecinos.html">Vecinos</a></li>
                 <li><a tabindex=1 href="./Autores.html">Acerca de</a></li>
                 <li><a tabindex=2 onclick="cerrarSesion()" id="cerrarSBtn">Cerrar Sesión</a></li>
@@ -84,13 +84,16 @@
         <a style="text-align:justify" class="btn waves-effect waves-light green" onclick="" id="agregarBtn">
             <i class="large material-icons">add</i>
         </a>
-        <a class="btn waves-effect waves-light red" onclick="" id="borrarBtn" style="margin-left:10px; text-align:justify">
+        <a class="btn waves-effect waves-light red" onclick="" id="borrarBtn"
+            style="margin-left:10px; text-align:justify">
             <i class="large material-icons">delete</i>
         </a>
-        <a class="btn waves-effect waves-light yellow darken-1" onclick="" id="editBtn" style="margin-left:10px; text-align:justify">
+        <a class="btn waves-effect waves-light yellow darken-1" onclick="" id="editBtn"
+            style="margin-left:10px; text-align:justify">
             <i class="large material-icons">edit</i>
         </a>
-        <a class="btn waves-effect waves-light blue" onclick="" id="editBtn" style="margin-left:10px; text-align:justify">
+        <a class="btn waves-effect waves-light blue" onclick="" id="editBtn"
+            style="margin-left:10px; text-align:justify">
             <i class="large material-icons">help_outline</i>
         </a>
 
@@ -106,18 +109,20 @@
         <br>
         <form class="col s12" id="agregarForm">
             <div class="row">
-                
+
                 <div class="input-field col s5">
                     <i class="material-icons prefix">account_circle</i>
                     <input id="name_icon" type="text" class="validate" required>
                     <label for="name_icon">Nombre</label>
-                    <span class="helper-text" data-error="El campo tiene que existir" data-success="Ingreso válido">Ingrese un nombre</span>
+                    <span class="helper-text" data-error="El campo tiene que existir"
+                        data-success="Ingreso válido">Ingrese un nombre</span>
                 </div>
                 <div class="input-field col s5">
                     <i class="material-icons prefix">mail_outline</i>
                     <input id="mail_icon" type="email" class="validate" required>
                     <label for="mail_icon">Correo</label>
-                    <span class="helper-text" data-error="Por favor, ingrese un correo válido" data-success="Ingreso válido">Ingrese el correo electrónico</span>
+                    <span class="helper-text" data-error="Por favor, ingrese un correo válido"
+                        data-success="Ingreso válido">Ingrese el correo electrónico</span>
                 </div>
             </div>
         </form>
@@ -125,7 +130,8 @@
 
         <!-- Boton para guardar y cancelar -->
         <div style="text-align:center">
-            <a style="margin-left:15px" class="btn waves-effect waves-light orange" onclick="agregarVecino()" id="editBtn">
+            <a style="margin-left:15px" class="btn waves-effect waves-light orange" onclick="agregarVecino()"
+                id="editBtn">
                 <i class="large material-icons left">save_alt</i>Agregar</a>
 
             <a style="margin-left:15px" class="btn waves-effect waves-light orange" id="cancelarBtn">
@@ -144,7 +150,8 @@
                     <i class="material-icons prefix">mail_outline</i>
                     <input id="mail_icon7" type="email" class="validate" required>
                     <label for="mail_icon7">Correo</label>
-                    <span class="helper-text" data-error="Por favor ingrese un ID válido">Ingrese el correo electrónico</span>
+                    <span class="helper-text" data-error="Por favor ingrese un ID válido">Ingrese el correo
+                        electrónico</span>
                 </div>
             </div>
         </form>
@@ -152,7 +159,8 @@
 
         <!-- Boton para guardar y cancelar -->
         <div style="text-align:center">
-            <a style="margin-left:15px" class="btn waves-effect waves-light orange" onclick="eliminarVecino2()" id="elimBtn">
+            <a style="margin-left:15px" class="btn waves-effect waves-light orange" onclick="eliminarVecino2()"
+                id="elimBtn">
                 <i class="large material-icons left">delete_forever</i>Eliminar</a>
 
             <a style="margin-left:15px" class="btn waves-effect waves-light orange" id="cancelarBtn2">
@@ -171,13 +179,15 @@
                     <i class="material-icons prefix">account_circle</i>
                     <input id="name_icon3" type="text" class="validate" required>
                     <label for="name_icon3">Nombre</label>
-                    <span class="helper-text" data-error="El campo tiene que existir" data-success="Ingreso válido">Ingrese un nombre</span>
+                    <span class="helper-text" data-error="El campo tiene que existir"
+                        data-success="Ingreso válido">Ingrese un nombre</span>
                 </div>
                 <div class="input-field col s5">
                     <i class="material-icons prefix">mail_outline</i>
                     <input id="mail_icon3" type="email" class="validate" required>
                     <label for="mail_icon3">Correo</label>
-                    <span class="helper-text" data-error="Por favor, ingrese un correo válido" data-success="Ingreso válido">Ingrese el correo electrónico</span>
+                    <span class="helper-text" data-error="Por favor, ingrese un correo válido"
+                        data-success="Ingreso válido">Ingrese el correo electrónico</span>
                 </div>
             </div>
         </form>
@@ -185,7 +195,8 @@
 
         <!-- Boton para guardar y cancelar -->
         <div style="text-align:center">
-            <a style="margin-left:15px" class="btn waves-effect waves-light orange" onclick="editarVecino2()" id="editBtn3">
+            <a style="margin-left:15px" class="btn waves-effect waves-light orange" onclick="editarVecino2()"
+                id="editBtn3">
                 <i class="large material-icons left">edit</i>Editar</a>
 
             <a style="margin-left:15px" class="btn waves-effect waves-light orange" id="cancelarBtn3">
@@ -236,6 +247,18 @@
         </table>
     </div>
 
+    <!-- PAGINACIÓN DE LA TABLA VECINOS -->
+    <div id="paginacion" style="text-align: center">
+        <ul class="pagination">
+            <li id="pagPrev" class="waves-effect"><a href="#!" onclick="changePage(-1,0)"><i
+                        class="material-icons">chevron_left</i></a></li>
+            <li id="pag1" class="active"><a href="#!">1</a></li>
+            <li id="pag2" class="waves-effect"><a href="#!">2</a></li>
+            <li id="pagNext" class="waves-effect"><a href="#!" onclick="changePage(1,0)"><i
+                        class="material-icons">chevron_right</i></a></li>
+        </ul>
+    </div>
+
     <br><br><br>
 
     <!-- Compiled and minified JavaScript -->
@@ -249,48 +272,50 @@
 
     <script src="fnsFirebase.js"></script>
 
+    <script src="generalFns.js"></script>
+
     <script>
         window.$ = window.jQuery = require('../node_modules/jquery');
     </script>
 
     <script>
-        $(document).ready(function() {
-            $('#agregarBtn').click(function() {
+        $(document).ready(function () {
+
+            let numPag = 1;
+
+            $('#agregarBtn').click(function () {
                 $('#inputsVecino2').slideUp();
                 $('#inputsVecino3').slideUp();
                 $('#inputsVecino').slideToggle();
             });
-            $('#cancelarBtn').click(function() {
+            $('#cancelarBtn').click(function () {
                 $('#inputsVecino').slideToggle();
                 document.getElementById("agregarForm").reset();
             });
 
-            $('#borrarBtn').click(function() {
+            $('#borrarBtn').click(function () {
                 $('#inputsVecino').slideUp();
                 $('#inputsVecino3').slideUp();
                 $('#inputsVecino2').slideToggle();
             });
 
-            $('#cancelarBtn2').click(function() {
+            $('#cancelarBtn2').click(function () {
                 $('#inputsVecino2').slideToggle();
                 document.getElementById("eliminarForm").reset();
             });
 
-            $('#editBtn').click(function() {
+            $('#editBtn').click(function () {
                 $('#inputsVecino').slideUp();
                 $('#inputsVecino2').slideUp();
                 $('#inputsVecino3').slideToggle();
             });
 
-            $('#cancelarBtn3').click(function() {
+            $('#cancelarBtn3').click(function () {
                 $('#inputsVecino3').slideToggle();
                 document.getElementById("editarForm").reset();
             });
 
-
-
         });
-        
     </script>
 
     <script>
@@ -300,8 +325,8 @@
         } = electron;
 
         connectDatabase();
-        obtenerVecinos();
-        obtenerContadorvecinos();
+        obtenerVecinos(1);
+        // obtenerContadorvecinos();
     </script>
 
 </body>

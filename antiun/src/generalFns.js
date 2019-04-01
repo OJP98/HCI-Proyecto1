@@ -83,6 +83,7 @@ function toastMensaje(mensaje) {
         html: mensaje,
         classes: 'rounded'
     });
+
     setTimeout(function () {
         M.toast({
             html: '¡Mensajes enviados!',
@@ -147,4 +148,33 @@ function graficarDatos(arrDatos, arrPred, arrTiempo) {
         }
     });
 
+}
+
+var pagActual = 1;
+
+function changePage(changePag, specificPag) {
+
+    if (specificPag == 0) {
+
+        if (pagActual + changePag >= 1 && pagActual + changePag <= 2) {
+
+            pagActual += changePag;
+
+            document.getElementById("pag1").className = "disabled";
+            document.getElementById("pag2").className = "disabled";
+
+            switch (pagActual) {
+                case 1:
+                    document.getElementById("pag1").className = "active";
+                    break;
+
+                case 2:
+                    document.getElementById("pag2").className = "active";
+                    break;
+            }
+
+            obtenerVecinos(pagActual)
+
+        }
+    }
 }
