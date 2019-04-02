@@ -26,7 +26,7 @@
     th {
         border-bottom: 1px solid #ddd;
     }
-
+    
     td {
         border-bottom: 1px solid #ddd;
         border-left: 1px solid #ddd;
@@ -60,15 +60,15 @@
 
     <hr><br>
 
-   <!-- CAJA DE CONFIRMACION -->
-   <div id="dialogoverlay"></div>
-   <div id="dialogbox" style="background-color:#90caf9;">
-       <div>
-           <div style="background-color:#90caf9; color:white;"  id="dialogboxhead"></div>
-           <div style="background-color:#64b5f6;" id="dialogboxbody"></div>
-           <div style="background-color:#90caf9;" id="dialogboxfoot"></div>
-       </div>
-   </div>
+    <!-- CAJA DE CONFIRMACION -->
+    <div id="dialogoverlay"></div>
+    <div id="dialogbox" style="background-color:#90caf9;">
+        <div>
+            <div style="background-color:#90caf9; color:white;" id="dialogboxhead"></div>
+            <div style="background-color:#64b5f6;" id="dialogboxbody"></div>
+            <div style="background-color:#90caf9;" id="dialogboxfoot"></div>
+        </div>
+    </div>
 
     <div class="row">
 
@@ -83,7 +83,7 @@
                 <table id="tabla_datos" class="highlight centered" style="border: 1px; display: none">
                     <thead>
                         <tr>
-                            <th>Fecha</th>
+                            <th>Hora</th>
                             <th>Nivel</th>
                             <th>Predicción</th>
                         </tr>
@@ -124,18 +124,12 @@
         <div class="col s4" style="text-align: center">
             <h4> Enviar un mensaje de alerta </h4>
             <br>
-            <a class="waves-effect waves-light btn yellow darken-1" accesskey="a"
-                onclick="Confirm.render('¿Quieres enviar un correo de alerta amarilla a todos los vecinos?','amarillo')">
+            <a class="waves-effect waves-light btn yellow darken-1" accesskey="a" onclick="Confirm.render('¿Quieres enviar un correo de alerta amarilla a todos los vecinos?','amarillo')">
                 <i class="material-icons right">warning</i> Alerta Amarilla</a>
             <br><br><br>
-            <a class="waves-effect waves-light btn red" accesskey="r"
-                onclick="Confirm.render('¿Quieres enviar un correo de alerta roja a todos los vecinos?','rojo')">
+            <a class="waves-effect waves-light btn red" accesskey="r" onclick="Confirm.render('¿Quieres enviar un correo de alerta roja a todos los vecinos?','rojo')">
                 <i class=" material-icons right ">warning</i> Alerta Roja</a>
-            <p style="text-align: justify; margin: 60px;">NOTA: El mensaje será enviado a todos los vecinos que
-                se
-                encuentran en el área seleccionada. La lista de dichos vecinos puede ser visualizada en la
-                pestaña
-                de 'VECINOS'.</p>
+            <p style="text-align: justify; margin: 60px;">NOTA: El mensaje será enviado a todos los vecinos que se encuentran en el área seleccionada. La lista de dichos vecinos puede ser visualizada en la pestaña de 'VECINOS'.</p>
         </div>
 
     </div>

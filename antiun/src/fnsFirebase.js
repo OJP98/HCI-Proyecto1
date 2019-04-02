@@ -106,6 +106,7 @@ async function obtenerVecinos(pagina) {
     var tabla_vecinos = document.getElementById("tabla_vecinos");
     var tbody = document.getElementById("tableBody");
     var loader = document.getElementById("loader");
+    var vecinosTag = document.getElementById("vecinosTag");
 
     // Se le hace un reset a la tabla y se hace visible el loader
     $("#tabla_vecinos tbody tr").remove();
@@ -116,6 +117,10 @@ async function obtenerVecinos(pagina) {
 
     // Se recorre el query
     query.once("value").then(function(snapshot) {
+
+        let totalVecinos = snapshot.numChildren() - 1;
+        vecinosTag.innerHTML = "Total de vecinos: " + totalVecinos;
+
         snapshot.forEach(function(childSnapshot) {
 
             contador += 1;
@@ -359,13 +364,12 @@ function editarVecino() {
             nombre: vecino_name,
             area: "Antigua Guatemala",
             correo: vecino_mail
-        
 
-        }).then(function (){
+
+        }).then(function() {
             window.alert("Vecino editado con éxito!");
             form.reset();
-        }
-        );
+        });
     }
     $("#tabla_vecinos tbody tr").remove();
     obtenerVecinos(pagActual).then(function() {
@@ -602,7 +606,11 @@ function GetNivelAguaActual() {
                         break;
                     case 3:
                         urlImagen = "url( '../Imgs/Inicio3.png')";
-                        break
+                        break;
+                    default:
+                        urlImagen = "url( '../Imgs/Inicio0.png')";
+                        break;
+
                 }
                 document.body.style.backgroundImage = urlImagen;
 
