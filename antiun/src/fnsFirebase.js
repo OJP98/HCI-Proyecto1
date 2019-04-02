@@ -359,14 +359,16 @@ function editarVecino() {
             nombre: vecino_name,
             area: "Antigua Guatemala",
             correo: vecino_mail
+        
 
-
-        });
+        }).then(function (){
+            window.alert("Vecino editado con éxito!");
+            form.reset();
+        }
+        );
     }
     $("#tabla_vecinos tbody tr").remove();
     obtenerVecinos(pagActual).then(function() {
-        window.alert("Vecino editado con éxito!");
-
         form.reset();
     });
 };
