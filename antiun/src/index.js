@@ -1,5 +1,10 @@
 /* eslint-disable indent */
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, globalShortcut } from 'electron';
+
+const { remote } = require('electron');
+
+const refreshPage = process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R';
+const quitApp = process.platform === 'darwin' ? 'Cmd+Q' : 'Ctrl+Q';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
@@ -32,6 +37,15 @@ const createWindow = () => {
         // when you should delete the corresponding element.
         mainWindow = null;
     });
+
+    globalShortcut.register(refreshPage, () => {
+        mainWindow.reload();
+    });
+
+    globalShortcut.register(quitApp, () => {
+        app.quit();
+
+    });
 };
 
 // This method will be called when Electron has finished
@@ -55,5 +69,3 @@ app.on('activate', () => {
         createWindow();
     }
 });
-
-
