@@ -28,11 +28,11 @@ function iniciarSesion() {
     var userData = userInput.value;
     var passwordData = passwordInput.value;
     firebase.auth().languageCode = 'es';
-    firebase.auth().signInWithEmailAndPassword(userData, passwordData).then(function () {
+    firebase.auth().signInWithEmailAndPassword(userData, passwordData).then(function() {
 
         document.location.href = 'index.html';
 
-    }).catch(function (error) {
+    }).catch(function(error) {
         var errorMessage = error.message;
         var errorCode = error.code;
         if (errorCode == "auth/invalid-email") {
@@ -61,13 +61,13 @@ function crearUsuario() {
     var passwordData2 = passwordInput2.value;
 
     if (passwordData1 == passwordData2) {
-        firebase.auth().createUserWithEmailAndPassword(userData, passwordData1).then(function () {
+        firebase.auth().createUserWithEmailAndPassword(userData, passwordData1).then(function() {
 
             window.alert("El usuario ha sido creado");
             document.location.href = 'login.html';
 
 
-        }).catch(function (error) {
+        }).catch(function(error) {
             // Handle Errors here.
             var errorMessage = error.message;
             var errorCode = error.code;
@@ -88,13 +88,13 @@ function crearUsuario() {
 
 async function existenDatos(variable) {
     const ref = firebase.database().ref(variable);
-    ref.once("value").then(function (snapshot) {
+    ref.once("value").then(function(snapshot) {
         return snapshot.exists();
     });
 };
 
 
-function obtenerVecinos(pagina) {
+async function obtenerVecinos(pagina) {
 
     // Inicialización de variables
     var query;
@@ -115,8 +115,8 @@ function obtenerVecinos(pagina) {
     query = firebase.database().ref("Vecinos");
 
     // Se recorre el query
-    query.once("value").then(function (snapshot) {
-        snapshot.forEach(function (childSnapshot) {
+    query.once("value").then(function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
 
             contador += 1;
 
@@ -154,7 +154,7 @@ function obtenerVecinos(pagina) {
             }
         });
 
-    }).then(function () {
+    }).then(function() {
 
         // Luego, se quita el loader y se muestra la tabla
         loader.style.display = "none";
@@ -175,7 +175,7 @@ async function agregarVecino() {
     var query = firebase.database().ref("Vecinos");
     var b = 0;
 
-    query.once("value").then(function (snapshot) {
+    query.once("value").then(function(snapshot) {
         var a = JSON.stringify(snapshot.numChildren());
         b = parseInt(a);
         if ((b - 1) > 0) {
@@ -204,7 +204,7 @@ async function agregarVecino() {
 
             document.getElementById("tabla_vecinos").style.display = "none";
             document.getElementById("loader").style.display = "block";
-            obtenerVecinos().then(function () {
+            obtenerVecinos(pagActual).then(function() {
                 window.alert("Vecino agregado con éxito!");
 
                 form.reset();
@@ -226,18 +226,18 @@ function eliminarVecino() {
         vecino_id_input.className = "validate invalid"
     } else {
 
-        firebase.database().ref('Vecinos/' + vecino_id).remove().then(function () {
+        firebase.database().ref('Vecinos/' + vecino_id).remove().then(function() {
             window.alert("Vecino eliminado con éxito!");
             document.getElementById("tabla_vecinos").style.display = "none";
             document.getElementById("loader").style.display = "block";
 
             $("#tabla_vecinos tbody tr").remove();
 
-            obtenerVecinos().then(function () {
+            obtenerVecinos(pagActual).then(function() {
                 form.reset();
             });
 
-        }).catch(function (error) {
+        }).catch(function(error) {
             vecino_id_input.className = "validate invalid";
         });
     }
@@ -245,47 +245,56 @@ function eliminarVecino() {
 
 
 async function eliminarVecino2() {
-    console.log("hola")
     let form = document.getElementById("eliminarForm");
     var correo_input = document.getElementById("mail_icon7");
     var correo_val = correo_input.value
-    let hayDatos = true;
-
-    if (hayDatos) {
-
-        var query = firebase.database().ref("Vecinos");
-
-        query.once("value").then(function (snapshot) {
-            snapshot.forEach(function (childSnapshot) {
-
-                var key = childSnapshot.key;
-                var childData = childSnapshot.val();
-
-                var id = document.createTextNode(key);
-                var correo = childData["correo"];
-                var correo_val2 = correo.value
+    let existe = false;
+    let contador = 0;
 
 
-                if (correo === correo_val) {
+    var query = firebase.database().ref("Vecinos");
+    query.once("value").then(function(snapshot) {
 
-                    firebase.database().ref('Vecinos/' + key).remove().then(function () {
-                        window.alert("Vecino eliminado con éxito!");
-                        document.getElementById("tabla_vecinos").style.display = "none";
-                        document.getElementById("loader").style.display = "block";
-                        $("#tabla_vecinos tbody tr").remove();
+        let numeroHijos = snapshot.numChildren();
 
-                        obtenerVecinos().then(function () {
-                            form.reset();
-                        });
+        snapshot.forEach(function(childSnapshot) {
 
-                    }).catch(function (error) {
+            contador += 1;
 
-                        vecino_id_input.className = "validate invalid";
+            var key = childSnapshot.key;
+            var childData = childSnapshot.val();
+
+            var id = document.createTextNode(key);
+            var correo = childData["correo"];
+
+
+            if (correo === correo_val) {
+
+                existe = true;
+
+                firebase.database().ref('Vecinos/' + key).remove().then(function() {
+                    window.alert("Vecino eliminado con éxito!");
+                    document.getElementById("tabla_vecinos").style.display = "none";
+                    document.getElementById("loader").style.display = "block";
+                    $("#tabla_vecinos tbody tr").remove();
+
+                    obtenerVecinos(pagActual).then(function() {
+                        form.reset();
                     });
-                }
-            });
-        })
-    }
+
+                }).catch(function(error) {
+
+                    vecino_id_input.className = "validate invalid";
+                });
+            }
+
+            if (contador == numeroHijos && !existe) {
+                window.alert("El correo ingresado no existe");
+            }
+
+        });
+    });
+
 };
 
 
@@ -296,8 +305,8 @@ async function editarVecino2() {
     let hayDatos = true;
     if (hayDatos) {
         var query = firebase.database().ref("Vecinos");
-        query.once("value").then(function (snapshot) {
-            snapshot.forEach(function (childSnapshot) {
+        query.once("value").then(function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
                 var key = childSnapshot.key;
                 var childData = childSnapshot.val();
                 var id = document.createTextNode(key);
@@ -316,7 +325,7 @@ async function editarVecino2() {
                     });
 
                     $("#tabla_vecinos tbody tr").remove();
-                    obtenerVecinos().then(function () {
+                    obtenerVecinos(pagActual).then(function() {
                         window.alert("Vecino editado con éxito!");
                         form.reset();
 
@@ -355,7 +364,7 @@ function editarVecino() {
         });
     }
     $("#tabla_vecinos tbody tr").remove();
-    obtenerVecinos().then(function () {
+    obtenerVecinos(pagActual).then(function() {
         window.alert("Vecino editado con éxito!");
 
         form.reset();
@@ -373,10 +382,10 @@ function recuperar() {
     var emailAddress = document.getElementById("userInput");
     var email = emailAddress.value;
     firebase.auth().languageCode = 'es';
-    firebase.auth().sendPasswordResetEmail(email).then(function () {
+    firebase.auth().sendPasswordResetEmail(email).then(function() {
         window.alert("El correo ha sido enviado");
         document.location.href = 'login.html';
-    }).catch(function (error) {
+    }).catch(function(error) {
         window.alert("Ingrese un correo valido");
     });
 };
@@ -394,7 +403,7 @@ function cargarMenuPrincipal() {
     let contenido = document.getElementById("contenidoGeneral");
     let loader = document.getElementById("loader");
 
-    firebase.auth().onAuthStateChanged(function (user) {
+    firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             let user = (firebase.auth().currentUser)["email"];
             nombreUsuario.innerHTML = user.substring(0, user.indexOf('@'));
@@ -424,9 +433,9 @@ function actualizar_datos_agua() {
     var horasLista = [];
 
 
-    query.once("value").then(function (snapshot) {
+    query.once("value").then(function(snapshot) {
 
-        snapshot.forEach(function (childSnapshot) {
+        snapshot.forEach(function(childSnapshot) {
 
             // Inicialización de variables
             let key = childSnapshot.key;
@@ -504,7 +513,7 @@ function actualizar_datos_agua() {
             celdaPrediccion.appendChild(nivelAguaPred);
         });
 
-    }).then(function () {
+    }).then(function() {
         // Se quita el loader y se muestra la tabla
         loader.style.display = "none";
         tabla_datos.style.display = "inline-table";
@@ -518,7 +527,7 @@ function actualizar_datos_agua() {
 
 function CerrarSesionConfirm() {
 
-    this.render = function (dialog, op) {
+    this.render = function(dialog, op) {
         let winW = window.innerWidth;
         let winH = window.innerHeight;
 
@@ -543,18 +552,18 @@ function CerrarSesionConfirm() {
         dialogboxbody.innerHTML = dialog;
         dialogboxfoot.innerHTML = '<button onclick="CerrarSesionConfirm.yes(\'' + op + '\')">Cerrar sesión</button> <button onclick="CerrarSesionConfirm.no()">Cancelar</button>';
     }
-    this.no = function () {
+    this.no = function() {
         document.getElementById('dialogbox').style.display = "none";
         document.getElementById('dialogoverlay').style.display = "none";
     }
-    this.yes = function () {
+    this.yes = function() {
 
         firebase.auth().languageCode = 'es';
-        firebase.auth().signOut().then(function () {
+        firebase.auth().signOut().then(function() {
 
             // Sign-out successful.
             document.location.href = 'login.html';
-        }).catch(function (error) {
+        }).catch(function(error) {
             // An error happened.
             window.alert("No se ha podido cerrar sesión");
         });
@@ -571,8 +580,8 @@ function GetNivelAguaActual() {
     let urlImagen = "";
     let query = firebase.database().ref("Datos");
 
-    query.once("value").then(function (snapshot) {
-        snapshot.forEach(function (childSnapshot) {
+    query.once("value").then(function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
 
             let key = childSnapshot.key;
             let childData = childSnapshot.val();
