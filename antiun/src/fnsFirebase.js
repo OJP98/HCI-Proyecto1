@@ -1,3 +1,5 @@
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
+
 /* eslint-disable indent */
 
 const src = "https://www.gstatic.com/firebasejs/5.7.1/firebase.js";
@@ -178,44 +180,45 @@ async function agregarVecino() {
     let vecino_nombre = nombre_input.value;
 
     var query = firebase.database().ref("Vecinos");
+
+    let nomVec = 0;
+
     var b = 0;
 
     query.once("value").then(function(snapshot) {
-        var a = JSON.stringify(snapshot.numChildren());
-        b = parseInt(a);
-        if ((b - 1) > 0) {
-            b = b - 1;
-        } else {
-            b = 0;
-        }
-        //aqi va codigo
-        b = b + 1;
+        firebase.database().ref('Vecinos/x').once('value').then(function(snapshot) {
+            nomVec = snapshot.val().Contador;
 
+            if (!correo_input.checkValidity() || !nombre_input.checkValidity()) {
+                window.alert("Por favor, verifique que todos los campos sean válidos");
 
-        if (!correo_input.checkValidity() || !nombre_input.checkValidity()) {
-            window.alert("Por favor, verifique que todos los campos sean válidos");
-        } else {
-            $("#tabla_vecinos tbody tr").remove();
+            } else {
 
-            firebase.database().ref('Vecinos/x').set({
-                Contador: b
-            });
+                nomVec += 1;
 
-            firebase.database().ref('Vecinos/' + b).set({
-                nombre: vecino_nombre,
-                area: "Antigua Guatemala",
-                correo: vecino_correo
-            });
+                $("#tabla_vecinos tbody tr").remove();
 
-            document.getElementById("tabla_vecinos").style.display = "none";
-            document.getElementById("loader").style.display = "block";
-            obtenerVecinos(pagActual).then(function() {
-                window.alert("Vecino agregado con éxito!");
+                firebase.database().ref('Vecinos/x').set({
+                    Contador: nomVec
+                });
 
-                form.reset();
+                firebase.database().ref('Vecinos/' + nomVec).set({
+                    nombre: vecino_nombre,
+                    area: "Antigua Guatemala",
+                    correo: vecino_correo
+                });
 
-            });
-        }
+                document.getElementById("tabla_vecinos").style.display = "none";
+                document.getElementById("loader").style.display = "block";
+                obtenerVecinos(pagActual).then(function() {
+                    window.alert("Vecino agregado con éxito!");
+
+                    form.reset();
+
+                });
+            }
+        });
+
     })
 };
 
@@ -309,15 +312,20 @@ async function editarVecino2() {
     var correo_val = correo_input.value
     let hayDatos = true;
     if (hayDatos) {
+
         var query = firebase.database().ref("Vecinos");
         query.once("value").then(function(snapshot) {
             snapshot.forEach(function(childSnapshot) {
+
                 var key = childSnapshot.key;
                 var childData = childSnapshot.val();
+
                 var id = document.createTextNode(key);
                 var correo = childData["correo"];
                 var correo_val2 = correo.value
+
                 if (correo === correo_val) {
+
                     let form = document.getElementById("editarForm");
                     let vecino_name_input = document.getElementById("name_icon3");
                     let vecino_name = vecino_name_input.value;
@@ -330,11 +338,11 @@ async function editarVecino2() {
                     });
 
                     $("#tabla_vecinos tbody tr").remove();
-                    obtenerVecinos(pagActual).then(function() {
-                        window.alert("Vecino editado con éxito!");
-                        form.reset();
 
-                    });
+                    obtenerVecinos(pagActual);
+                    window.alert("Vecino editado con éxito!");
+                    form.reset();
+
                 } else {
                     window.alert("El correo no existe, por favor verificar");
                 }
@@ -355,7 +363,9 @@ function editarVecino() {
     let vecino_mail = vecino_mail_input.value;
 
     if (vecino_id == "") {
+
         window.alert("Por favor, ingrese el ID de un vecino.");
+
     } else if (vecino_id <= 0) {
         vecino_id_input.className = "validate invalid"
     } else {
@@ -366,12 +376,13 @@ function editarVecino() {
             correo: vecino_mail
 
 
-        }).then(function() {
-            window.alert("Vecino editado con éxito!");
-            form.reset();
         });
+        window.alert("Vecino editado con éxito!");
+        form.reset();
     }
+
     $("#tabla_vecinos tbody tr").remove();
+
     obtenerVecinos(pagActual).then(function() {
         form.reset();
     });

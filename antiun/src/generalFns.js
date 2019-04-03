@@ -5,7 +5,7 @@ function goBack() {
 }
 
 function CustomAlert() {
-    this.render = function (dialog) {
+    this.render = function(dialog) {
         var winW = window.innerWidth;
         var winH = window.innerHeight;
         var dialogoverlay = document.getElementById('dialogoverlay');
@@ -19,7 +19,7 @@ function CustomAlert() {
         document.getElementById('dialogboxbody').innerHTML = dialog;
         document.getElementById('dialogboxfoot').innerHTML = '<button onclick="Alert.ok()">OK</button>';
     }
-    this.ok = function () {
+    this.ok = function() {
         document.getElementById('dialogbox').style.display = "none";
         document.getElementById('dialogoverlay').style.display = "none";
     }
@@ -41,7 +41,7 @@ function salirSistema() {
 }
 
 function CustomConfirm() {
-    this.render = function (dialog, op) {
+    this.render = function(dialog, op) {
         let winW = window.innerWidth;
         let winH = window.innerHeight;
 
@@ -66,11 +66,11 @@ function CustomConfirm() {
         dialogboxbody.innerHTML = dialog;
         dialogboxfoot.innerHTML = '<button onclick="Confirm.yes(\'' + op + '\')">Enviar correo</button> <button onclick="Confirm.no()">Cancelar</button>';
     }
-    this.no = function () {
+    this.no = function() {
         document.getElementById('dialogbox').style.display = "none";
         document.getElementById('dialogoverlay').style.display = "none";
     }
-    this.yes = function (op) {
+    this.yes = function(op) {
 
         enviarCorreo(op);
 
@@ -93,7 +93,7 @@ function toastMensaje(mensaje) {
         classes: 'rounded'
     });
 
-    setTimeout(function () {
+    setTimeout(function() {
         M.toast({
             html: '¡Mensajes enviados!',
             classes: 'rounded'
@@ -111,7 +111,7 @@ function sumarTiempo(horas, minutos, suma_tiempo) {
         horas += 1;
     }
 
-    if (minutos < 10)
+    if (Number(minutos) < 10)
         minutos = "0" + minutos;
 
     horas = horas % 24;
@@ -201,8 +201,8 @@ async function enviarCorreo(tipoAlerta) {
     // Se obtiene el query
     let query = firebase.database().ref("Vecinos");
     // Se recorre el query
-    query.once("value").then(function (snapshot) {
-        snapshot.forEach(function (childSnapshot) {
+    query.once("value").then(function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
             // Se obtiene llave / valor
             var key = childSnapshot.key;
             var childData = childSnapshot.val();
